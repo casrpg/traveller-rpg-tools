@@ -1,7 +1,5 @@
-# SPA + Netlify functions monorepo template with Typescript
-This is a simple template for a monorepo containing an SPA built with [Vite](https://vitejs.dev/)
-and with [Netlify functions](https://docs.netlify.com/functions/build/?fn-language=ts) both 
-using Typescript.
+# Traveller RPG utils
+This is a work in progress project to create a set of tools to help with the Traveller RPG.
 
 ## Install
 Run `npm install`
