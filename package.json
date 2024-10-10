@@ -1,0 +1,31 @@
+{
+  "name": "spa-netlify-ts-monorepo",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "netlify dev --filter app",
+    "dev": "npm run dev --workspaces --if-present",
+    "build": "npm run build --workspaces --if-present",
+    "preview": "npm run preview --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "test:e2e": "playwright test",
+    "test": "npm run lint --workspaces --if-present && npm run test --workspaces --if-present && playwright test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "workspaces": [
+    "app",
+    "functions"
+  ],
+  "volta": {
+    "node": "18.18.0",
+    "npm": "9.9.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.47.2",
+    "netlify-cli": "17.36.4"
+  }
+}
