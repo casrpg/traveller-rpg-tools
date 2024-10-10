@@ -21,8 +21,8 @@
     "functions"
   ],
   "volta": {
-    "node": "18.18.0",
-    "npm": "9.9.0"
+    "node": "20.18.0",
+    "npm": "10.9.0"
   },
   "devDependencies": {
     "@playwright/test": "1.47.2",
