@@ -1,4 +1,4 @@
-import { Handler } from '@netlify/functions'
+import { type Handler } from '@netlify/functions'
 
 const generateNPC: Handler = async (event, context) => {
   // This is a mock implementation. In a real scenario, you'd have more complex logic here.

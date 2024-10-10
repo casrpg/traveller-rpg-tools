@@ -1,4 +1,4 @@
-import { Handler } from '@netlify/functions'
+import { type Handler } from '@netlify/functions'
 
 const decodePlanet: Handler = async (event, context) => {
   if (!event.body) {
