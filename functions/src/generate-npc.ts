@@ -7,8 +7,8 @@ const generateNPC: Handler = async (event, context) => {
   const skills = ['Leadership', 'Diplomacy', 'Tactics', 'Engineering', 'Combat', 'Medicine', 'Empathy', 'Navigation', 'Xenobiology']
   const equipment = ['Phaser', 'Tricorder', 'Communicator Badge', 'Medical Kit', 'Engineering Tool Kit', 'Universal Translator']
 
-  const randomItem = (array: string[]) => array[Math.floor(Math.random() * array.length)]
-  const randomItems = (array: string[], count: number) => {
+  const randomItem = (array: string[]): string => array[Math.floor(Math.random() * array.length)]
+  const randomItems = (array: string[], count: number): string[] => {
     const shuffled = array.sort(() => 0.5 - Math.random())
     return shuffled.slice(0, count)
   }
@@ -17,12 +17,12 @@ const generateNPC: Handler = async (event, context) => {
     name: randomItem(names),
     occupation: randomItem(occupations),
     skills: randomItems(skills, 3),
-    equipment: randomItems(equipment, 2),
+    equipment: randomItems(equipment, 2)
   }
 
   return {
     statusCode: 200,
-    body: JSON.stringify(npc),
+    body: JSON.stringify(npc)
   }
 }
 

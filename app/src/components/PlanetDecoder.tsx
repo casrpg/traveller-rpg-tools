@@ -1,36 +1,36 @@
 import React, { useState } from 'react';
 
 interface PlanetInfo {
-  name: string;
-  size: number;
-  atmosphere: number;
-  hydrographics: number;
-  population: number;
-  government: number;
-  lawLevel: number;
-  techLevel: number;
+  name: string
+  size: number
+  atmosphere: number
+  hydrographics: number
+  population: number
+  government: number
+  lawLevel: number
+  techLevel: number
 }
 
 export const PlanetDecoder: React.FC = () => {
-  const [planetCode, setPlanetCode] = useState('');
-  const [planetInfo, setPlanetInfo] = useState<PlanetInfo | null>(null);
+  const [planetCode, setPlanetCode] = useState('')
+  const [planetInfo, setPlanetInfo] = useState<PlanetInfo | null>(null)
 
   const decodePlanet = async () => {
     try {
       const response = await fetch('/api/decode-planet', {
         method: 'POST',
-        body: JSON.stringify({ code: planetCode }),
-      });
-      const data: PlanetInfo = await response.json();
-      setPlanetInfo(data);
+        body: JSON.stringify({ planetCode })
+      })
+      const data: PlanetInfo = await response.json()
+      setPlanetInfo(data)
     } catch (error) {
-      console.error('Error decoding planet:', error);
+      console.error('Error decoding planet:', error)
     }
-  };
+  }
 
   return (
     <div className="lcars-panel">
-      <h2 className="text-2xl font-bold mb-4 lcars-header">Planet Decoder</h2>
+      <h2 className="mb-4 text-2xl font-bold lcars-header">Planet Decoder</h2>
       <div className="lcars-content">
         <input
           type="text"
@@ -41,7 +41,7 @@ export const PlanetDecoder: React.FC = () => {
         />
         <button
           onClick={decodePlanet}
-          className="lcars-button mb-4"
+          className="mb-4 lcars-button"
         >
           Decode Planet
         </button>
