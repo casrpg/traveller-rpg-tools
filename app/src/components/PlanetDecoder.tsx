@@ -48,14 +48,14 @@ export const PlanetDecoder: React.FC = () => {
         </button>
         {planetInfo && (
           <div className="mt-4">
-            <div className="lcars-element">{planetInfo.name}</div>
-            <div className="lcars-element">Size: {planetInfo.size}</div>
-            <div className="lcars-element">Atmosphere: {planetInfo.atmosphere}</div>
-            <div className="lcars-element">Hydrographics: {planetInfo.hydrographics}</div>
-            <div className="lcars-element">Population: {planetInfo.population}</div>
-            <div className="lcars-element">Government: {planetInfo.government}</div>
-            <div className="lcars-element">Law Level: {planetInfo.lawLevel}</div>
-            <div className="lcars-element">Tech Level: {planetInfo.techLevel}</div>
+            <div className="lcars-element" data-test-id="name">{planetInfo.name}</div>
+            <div className="lcars-element" data-test-id="size">Size: {planetInfo.size}</div>
+            <div className="lcars-element" data-test-id="atmosphere">Atmosphere: {planetInfo.atmosphere}</div>
+            <div className="lcars-element" data-test-id="hydrographics">Hydrographics: {planetInfo.hydrographics}</div>
+            <div className="lcars-element" data-test-id="population">Population: {planetInfo.population}</div>
+            <div className="lcars-element" data-test-id="government">Government: {planetInfo.government}</div>
+            <div className="lcars-element" data-test-id="lawLevel">Law Level: {planetInfo.lawLevel}</div>
+            <div className="lcars-element" data-test-id="techLevel">Tech Level: {planetInfo.techLevel}</div>
           </div>
         )}
       </div>
