@@ -21,7 +21,7 @@ test('test decode planet', async ({ page }) => {
   await expect(page.locator(hydrographicsLocator)).toHaveText('Hydrographics: 90% water');
   await expect(page.locator(populationLocator)).toHaveText('Population: Millions');
   await expect(page.locator(governmentLocator)).toHaveText('Government: Balkanization');
-  await expect(page.locator(lawLevelLocator)).toHaveText('Law Level: Level'); //TODO fix
+  await expect(page.locator(lawLevelLocator)).toHaveText('Law Level: Level 1');
   await expect(page.locator(techLevelLocator)).toHaveText('Tech Level: TLNaN'); //TODO fix
 });
 
