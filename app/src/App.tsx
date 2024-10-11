@@ -1,8 +1,8 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import { Rocket, Users } from 'lucide-react';
-import { NPCGenerator } from './components/NPCGenerator';
-import { PlanetDecoder } from './components/PlanetDecoder';
+import React from 'react'
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
+import { Rocket, Users } from 'lucide-react'
+import { NPCGenerator } from './components/NPCGenerator'
+import { PlanetDecoder } from './components/PlanetDecoder'
 
 const App: React.FC = () => {
   return (
@@ -36,14 +36,14 @@ const App: React.FC = () => {
         </main>
       </div>
     </Router>
-  );
-};
+  )
+}
 
 const Home: React.FC = () => (
   <div className="text-center lcars-panel">
     <h2 className="text-4xl font-bold mb-4 lcars-header">Welcome to Traveller RPG Tools</h2>
     <p className="mb-4 lcars-content">Select a tool from the navigation menu to get started.</p>
   </div>
-);
+)
 
-export default App;
+export default App
