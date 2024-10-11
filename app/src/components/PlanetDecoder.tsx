@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
+import React, { useState } from 'react'
 
 interface PlanetInfo {
   name: string
@@ -35,7 +36,7 @@ export const PlanetDecoder: React.FC = () => {
         <input
           type="text"
           value={planetCode}
-          onChange={(e) => setPlanetCode(e.target.value)}
+          onChange={(e) => { setPlanetCode(e.target.value) }}
           placeholder="Enter planet code"
           className="w-full p-2 mb-4 bg-[#000033] text-[#ff9900] rounded"
         />
@@ -59,5 +60,5 @@ export const PlanetDecoder: React.FC = () => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}

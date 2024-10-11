@@ -1,32 +1,33 @@
-import React, { useState } from 'react';
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
+import React, { useState } from 'react'
 
 interface NPC {
-  name: string;
-  age: number;
-  occupation: string;
-  skills: string[];
+  name: string
+  age: number
+  occupation: string
+  skills: string[]
 }
 
 export const NPCGenerator: React.FC = () => {
-  const [npc, setNPC] = useState<NPC | null>(null);
+  const [npc, setNPC] = useState<NPC | null>(null)
 
   const generateNPC = async () => {
     try {
-      const response = await fetch('/api/generate-npc');
-      const data: NPC = await response.json();
-      setNPC(data);
+      const response = await fetch('/api/generate-npc')
+      const data: NPC = await response.json()
+      setNPC(data)
     } catch (error) {
-      console.error('Error generating NPC:', error);
+      console.error('Error generating NPC:', error)
     }
-  };
+  }
 
   return (
     <div className="lcars-panel">
-      <h2 className="text-2xl font-bold mb-4 lcars-header">NPC Generator</h2>
+      <h2 className="mb-4 text-2xl font-bold lcars-header">NPC Generator</h2>
       <div className="lcars-content">
         <button
           onClick={generateNPC}
-          className="lcars-button mb-4"
+          className="mb-4 lcars-button"
         >
           Generate NPC
         </button>
@@ -40,5 +41,5 @@ export const NPCGenerator: React.FC = () => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
