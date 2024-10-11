@@ -53,10 +53,23 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
     body: JSON.stringify(decodedInfo)
   }
 }
+interface PlanetSize {
+  diameter: string
+  jumpDistance: string
+  gravity: string
+  example?: string
+}
+
+const sizeByCode: Record<string, PlanetSize> = {
+  0: { diameter: '<1000 Km', jumpDistance: '100.000 Km', gravity: 'microgravity', example: 'Asteroid' }
+}
 
 function decodeSize (code: string): string {
-  const sizes = ['Asteroid/Planetoid', 'Small', 'Medium', 'Large', 'Huge']
-  return sizes[parseInt(code, 16)] || 'Unknown'
+  if (!sizeByCode[code]) {
+    return 'Unknown'
+  }
+  const { diameter, jumpDistance, gravity, example } = sizeByCode[code]
+  return `diameter: ${diameter}, jump distance ${jumpDistance}, gravity ${gravity} ${example ? `, e.g. ${example}` : ''}`
 }
 
 function decodeAtmosphere (code: string): string {
