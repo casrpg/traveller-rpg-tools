@@ -13,7 +13,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@netlify/functions": "2.0.2"
+    "@netlify/functions": "2.8.2"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "7.8.0",
