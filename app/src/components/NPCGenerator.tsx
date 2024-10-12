@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import React, { useState } from 'react'
-
 interface NPC {
   name: string
-  age: number
   occupation: string
   skills: string[]
+  equipment: string[]
 }
 
 export const NPCGenerator: React.FC = () => {
@@ -13,7 +12,7 @@ export const NPCGenerator: React.FC = () => {
 
   const generateNPC = async () => {
     try {
-      const response = await fetch('/api/generate-npc')
+      const response = await fetch('/api/generate-npc', { method: 'POST' })
       const data: NPC = await response.json()
       setNPC(data)
     } catch (error) {
@@ -34,9 +33,9 @@ export const NPCGenerator: React.FC = () => {
         {npc && (
           <div className="mt-4">
             <div className="lcars-element">{npc.name}</div>
-            <div className="lcars-element">Age: {npc.age}</div>
             <div className="lcars-element">Occupation: {npc.occupation}</div>
             <div className="lcars-element">Skills: {npc.skills.join(', ')}</div>
+            <div className="lcars-element">Equipment: {npc.equipment.join(', ')}</div>
           </div>
         )}
       </div>
