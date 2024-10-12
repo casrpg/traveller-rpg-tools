@@ -8,7 +8,7 @@ describe('generate-npc handler', () => {
     const event = initializeHandlerEvent('GET')
     const context = initializeHandlerContext()
 
-    const response  = await handler(event, context) as HandlerResponse
+    const response = await handler(event, context) as HandlerResponse
     expect(response.statusCode).toBe(200)
     expect(response.headers).toBeDefined()
     expect(response.headers).toHaveProperty('Content-Type')
@@ -37,42 +37,34 @@ describe('generate-npc handler', () => {
   })
 })
 
-function initializeHandlerContext(): HandlerContext {
-    return {
-        callbackWaitsForEmptyEventLoop: false,
-        functionName: '',
-        functionVersion: '',
-        invokedFunctionArn: '',
-        memoryLimitInMB: '',
-        awsRequestId: '',
-        logGroupName: '',
-        logStreamName: '',
-        getRemainingTimeInMillis: function (): number {
-            throw new Error('Function not implemented.')
-        },
-        done: function (error?: Error, result?: any): void {
-            throw new Error('Function not implemented.')
-        },
-        fail: function (error: Error | string): void {
-            throw new Error('Function not implemented.')
-        },
-        succeed: function (messageOrObject: any): void {
-            throw new Error('Function not implemented.')
-        }
-    }
+function initializeHandlerContext (): HandlerContext {
+  return {
+    callbackWaitsForEmptyEventLoop: false,
+    functionName: '',
+    functionVersion: '',
+    invokedFunctionArn: '',
+    memoryLimitInMB: '',
+    awsRequestId: '',
+    logGroupName: '',
+    logStreamName: '',
+    getRemainingTimeInMillis (): number { return 0 },
+    done (error?: Error, result?: any): void {},
+    fail (error: Error | string): void {},
+    succeed (messageOrObject: any): void {}
+  }
 }
 
-function initializeHandlerEvent(method: string): HandlerEvent {
-    return {
-        httpMethod: method,
-        body: null,
-        rawUrl: '/api/generate-npc',
-        rawQuery: '',
-        path: '/api/generate-npc',
-        headers: {},
-        multiValueHeaders: {},
-        queryStringParameters: null,
-        multiValueQueryStringParameters: null,
-        isBase64Encoded: false
-    }
+function initializeHandlerEvent (method: string): HandlerEvent {
+  return {
+    httpMethod: method,
+    body: null,
+    rawUrl: '/api/generate-npc',
+    rawQuery: '',
+    path: '/api/generate-npc',
+    headers: {},
+    multiValueHeaders: {},
+    queryStringParameters: null,
+    multiValueQueryStringParameters: null,
+    isBase64Encoded: false
+  }
 }
