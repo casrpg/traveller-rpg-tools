@@ -5,11 +5,17 @@ module.exports = {
   },
   extends: 'standard-with-typescript',
   overrides: [
+    {
+      'files': ['**/*.spec.ts', '**/*.test.ts'],
+      'parserOptions': {
+        'project': './functions/tsconfig.tests.json'
+      }
+    }
   ],
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
-    project: './tsconfig.json'
+    project: ['./functions/tsconfig.json', './functions/tsconfig.tests.json']
   },
   ignorePatterns: ['node_modules'],
   rules: {
