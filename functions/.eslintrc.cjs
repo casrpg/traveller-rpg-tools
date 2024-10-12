@@ -8,16 +8,18 @@ module.exports = {
     {
       'files': ['**/*.spec.ts', '**/*.test.ts'],
       'parserOptions': {
-        'project': './functions/tsconfig.tests.json'
+        'project': './tsconfig.tests.json'
       }
     }
   ],
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
-    project: ['./functions/tsconfig.json', './functions/tsconfig.tests.json']
+    project: ['./tsconfig.json', './tsconfig.tests.json']
   },
   ignorePatterns: ['node_modules'],
   rules: {
+    '@typescript-eslint/no-non-null-assertion': 'off',
+    'n/handle-callback-err': 'off',
   }
 }
