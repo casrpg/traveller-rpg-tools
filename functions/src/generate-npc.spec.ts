@@ -4,11 +4,12 @@ import { type HandlerEvent, type HandlerContext, type HandlerResponse } from '@n
 import { handler } from './generate-npc'
 
 describe('generate-npc handler', () => {
-  it('should return generated NPC data for a valid GET request', async () => {
-    const event = initializeHandlerEvent('GET')
+  it('should return generated NPC data for a valid POST request', async () => {
+    const event = initializeHandlerEvent('POST')
     const context = initializeHandlerContext()
 
     const response = await handler(event, context) as HandlerResponse
+
     expect(response.statusCode).toBe(200)
     expect(response.headers).toBeDefined()
     expect(response.headers).toHaveProperty('Content-Type')
@@ -21,8 +22,8 @@ describe('generate-npc handler', () => {
     expect(body).toHaveProperty('equipment')
   })
 
-  it('should return 405 for non-GET requests', async () => {
-    const event = initializeHandlerEvent('POST')
+  it('should return 405 for non-POST requests', async () => {
+    const event = initializeHandlerEvent('GET')
     const context = initializeHandlerContext()
 
     const response = await handler(event, context) as HandlerResponse

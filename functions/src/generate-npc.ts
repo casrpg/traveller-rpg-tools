@@ -1,7 +1,13 @@
 import { type Handler, type HandlerEvent, type HandlerContext } from '@netlify/functions'
+interface NPC {
+  name: string
+  occupation: string
+  skills: string[]
+  equipment: string[]
+}
 
 const handler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
-  if (event.httpMethod !== 'GET') {
+  if (event.httpMethod !== 'POST') {
     return {
       statusCode: 405,
       headers: { 'Content-Type': 'application/json' },
@@ -20,7 +26,7 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
     return shuffled.slice(0, count)
   }
 
-  const npc = {
+  const npc: NPC = {
     name: randomItem(names),
     occupation: randomItem(occupations),
     skills: randomItems(skills, 3),
