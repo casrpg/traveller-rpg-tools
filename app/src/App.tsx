@@ -2,6 +2,7 @@ import React from 'react'
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
 import { NPCGenerator } from './components/NPCGenerator'
 import { PlanetDecoder } from './components/PlanetDecoder'
+import { BarRunner } from './ui/BarRunner'
 
 const App: React.FC = () => {
   const nav = (
@@ -24,33 +25,28 @@ const App: React.FC = () => {
   return (
     <Router>
       <div className="wrap-everything">
-          <div className="wrap">
-            <div className="left-frame" data-id-test="menu-container">
-              <div>
-                <div className="panel-3">Traveller RPG <span className="hop">Tools</span></div>
-                {nav}
-              </div>
-              <div className="panel-4">04<span className="hop">-41969</span></div>
-              <div className="panel-5">05<span className="hop">-1701D</span></div>
-              <div className="panel-6">06<span className="hop">-071984</span></div>
-              <div className="panel-7">07<span className="hop">-47148</span></div>
-              <div>
-                <div className="panel-8">08<span className="hop">-091966</span></div>
-              </div>
-            </div>
-            <div className="right-frame">
-              <div className="bar-runner">
-                <div className="bar-6"></div>
-                <div className="bar-7"></div>
-                <div className="bar-8"></div>
-                <div className="bar-9"></div>
-                <div className="bar-10"></div>
-              </div>
-              <main>
-                {routes}
-              </main>
-            </div>
+        <div className="left-frame" data-id-test="menu-container">
+          <div>
+            <div className="panel-3">Traveller RPG <span className="hop">Tools</span></div>
+            {nav}
           </div>
+          <div className="panel-4">04<span className="hop">-41969</span></div>
+          <div className="panel-5">05<span className="hop">-1701D</span></div>
+          <div className="panel-6">06<span className="hop">-071984</span></div>
+          <div className="panel-7">07<span className="hop">-47148</span></div>
+          <div>
+            <div className="panel-8">08<span className="hop">-091966</span></div>
+          </div>
+        </div>
+        <div className="right-frame">
+
+          <BarRunner barValues={[6, 5, 6, 10]} />
+
+          <main>
+            {routes}
+          </main>
+
+        </div>
       </div>
     </Router>
   )
