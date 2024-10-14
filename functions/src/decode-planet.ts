@@ -91,7 +91,7 @@ interface PlanetSize {
 const sizeByCode: Record<string, PlanetSize> = {
   0: { diameter: '<1000 Km', jumpDistance: '100.000 Km', jumpRapidDistance: '90.000', gravity: 'microgravity', example: 'Asteroid' },
   1: { diameter: '1.600 Km', jumpDistance: '160.000 Km', jumpRapidDistance: '144.000', gravity: '0,05g', example: 'Triton' },
-  2: { diameter: '3.200 Km', jumpDistance: '320.000 Km', jumpRapidDistance: '288.000', gravity: '0,15,', example: 'Moon' },
+  2: { diameter: '3.200 Km', jumpDistance: '320.000 Km', jumpRapidDistance: '288.000', gravity: '0,15g', example: 'Moon' },
   3: { diameter: '4.800 Km', jumpDistance: '480.000 Km', jumpRapidDistance: '432.000', gravity: '0,25g', example: 'Mercury' },
   4: { diameter: '6.400 Km', jumpDistance: '640.000 Km', jumpRapidDistance: '576.000', gravity: '0,35g', example: 'Less than Mars' },
   5: { diameter: '8.000 Km', jumpDistance: '800.000 Km', jumpRapidDistance: '720.000', gravity: '0,45g', example: 'Mars' },
