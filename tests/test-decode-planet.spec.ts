@@ -16,7 +16,7 @@ test('test decode planet', async ({ page }) => {
   await page.getByPlaceholder('Enter planet code').fill('A7294718');
   await page.getByRole('button', { name: 'Decode Planet' }).click();
   await expect(page.locator(nameLocator)).toHaveText('Planet A7294718');
-  await expect(page.locator(sizeLocator)).toHaveText('Size: Unknown'); //TODO fix
+  await expect(page.locator(sizeLocator)).toHaveText('Size: diameter: 16.000 Km, jump distance: 1.600.000 Km, jump rapid distance: 1.440.000, gravity: 1,4g , e.g.: Much more than Earth'); //TODO fix
   await expect(page.locator(atmosphereLocator)).toHaveText('Atmosphere: Exotic');
   await expect(page.locator(hydrographicsLocator)).toHaveText('Hydrographics: 90% water');
   await expect(page.locator(populationLocator)).toHaveText('Population: Millions');
