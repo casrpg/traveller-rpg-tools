@@ -37,14 +37,15 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
 
   const decodedInfo = {
     name: `Planet ${planetCode}`,
-    size: decodeSize(planetCode[0]),
-    atmosphere: decodeAtmosphere(planetCode[1]),
-    temperature: decodeTemperature(planetCode[2]),
-    hydrographics: decodeHydrographics(planetCode[3]),
-    population: decodePopulation(planetCode[4]),
-    government: decodeGovernment(planetCode[5]),
-    lawLevel: decodeLawLevel(planetCode[6]),
-    techLevel: decodeTechLevel(planetCode[8])
+    astroport: decodeAstroport(planetCode[0]),
+    size: decodeSize(planetCode[1]),
+    atmosphere: decodeAtmosphere(planetCode[2]),
+    temperature: decodeTemperature(planetCode[3]),
+    hydrographics: decodeHydrographics(planetCode[4]),
+    population: decodePopulation(planetCode[5]),
+    government: decodeGovernment(planetCode[6]),
+    lawLevel: decodeLawLevel(planetCode[7]),
+    techLevel: decodeTechLevel(planetCode[9])
   }
 
   return {
@@ -53,6 +54,32 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
     body: JSON.stringify(decodedInfo)
   }
 }
+
+interface Astroport {
+  quality: string
+  dockingPrice: string
+  fuel: string
+  services: string
+}
+
+const astroportByCode: Record<string, Astroport> = {
+  A: { quality: 'Excelent', dockingPrice: '1D x 1.000 Cr', fuel: 'Refined', services: 'Repairs and all shipyard' },
+  B: { quality: 'Good', dockingPrice: '1D x 500 Cr', fuel: 'Refined', services: 'Repairs and spacecraft shipyard' },
+  C: { quality: 'Routine', dockingPrice: '1D x 1000 Cr', fuel: 'Raw', services: 'Repairs and all shuttle' },
+  D: { quality: 'Poor', dockingPrice: '1D x 10 Cr', fuel: 'Raw', services: 'Limited repairs' },
+  E: { quality: 'Frontier', dockingPrice: 'None', fuel: 'None', services: 'None' },
+  X: { quality: 'No astroport', dockingPrice: 'None', fuel: 'None', services: 'None' }
+
+}
+
+function decodeAstroport (code: string): string {
+  if (!astroportByCode[code]) {
+    return 'Unknown'
+  }
+  const { quality, dockingPrice, fuel, services } = astroportByCode[code]
+  return `Quality: ${quality}, dockingPrice: ${dockingPrice}, fuel: ${fuel}, services: ${services}}`
+}
+
 interface PlanetSize {
   diameter: string
   jumpDistance: string
