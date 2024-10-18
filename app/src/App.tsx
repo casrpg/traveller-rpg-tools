@@ -5,6 +5,7 @@ import { PlanetDecoder } from './features/PlanetDecoder'
 import { BarRunner } from './lcars/BarRunner'
 import { Spacer } from './lcars/Spacer'
 import { Panel } from './lcars/Panel'
+import { CollapsibleLabel } from './lcars/CollapsibleLabel'
 
 const App: React.FC = () => {
   const nav = (
@@ -33,10 +34,10 @@ const App: React.FC = () => {
               <Panel kind="3">Traveller RPG <span className="hop">Tools</span></Panel>
               {nav}
             </div>
-            <Panel kind="4">04<span className="hop">-41969</span></Panel>
-            <Panel kind="5">05<span className="hop">-1701D</span></Panel>
-            <Panel kind="6">06<span className="hop">-071984</span></Panel>
-            <Panel kind="7">07<span className="hop">-47148</span></Panel>
+            <Panel kind="4">04<CollapsibleLabel>-41969</CollapsibleLabel></Panel>
+            <Panel kind="5">05<CollapsibleLabel>-1701D</CollapsibleLabel></Panel>
+            <Panel kind="6">06<CollapsibleLabel>-071984</CollapsibleLabel></Panel>
+            <Panel kind="7">07<CollapsibleLabel>-47148</CollapsibleLabel></Panel>
             <div className="panel-wrapper">
               <Panel kind="8">08<span className="hop">-091966</span></Panel>
             </div>
