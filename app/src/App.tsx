@@ -6,6 +6,7 @@ import { BarRunner } from './lcars/BarRunner'
 import { Spacer } from './lcars/Spacer'
 import { Panel } from './lcars/Panel'
 import { CollapsibleLabel } from './lcars/CollapsibleLabel'
+import { Home } from './features/Home'
 
 const App: React.FC = () => {
   const nav = (
@@ -46,7 +47,7 @@ const App: React.FC = () => {
             <BarRunner bars={[1, 2, 3, 4, 5]} />
             <Spacer spacers={[2, 2, 3, 4]}/>
 
-            <main>
+            <main style={{ minWidth: '60vw' }}>
               {routes}
             </main>
 
@@ -56,17 +57,5 @@ const App: React.FC = () => {
     </Router>
   )
 }
-
-const Home: React.FC = () => (
-  <div className="panel-wrapper">
-    <Panel kind="base">
-      <img src="/sfcmd.png" className="sfc" />
-      <div className="lcars-heading">Traveller RPG Tools</div>
-      <div className="lcars-access">
-        user authorization code <span className="blink medium-dark-blue">accepted</span>
-      </div>
-    </Panel>
-  </div>
-)
 
 export default App
