@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { Heading } from '../lcars/Heading'
 import './PlanetDecoder.css'
 import { ButtonBar } from '../lcars/ButtonBar'
+import Button from '../lcars/Button'
 
 interface PlanetInfo {
   name: string
@@ -44,14 +45,10 @@ export const PlanetDecoder: React.FC = () => {
           className="planet-decoder--code-input"
         />
         <ButtonBar alignment='space-between'>
-          <a
-            onClick={decodePlanet}
-            role="button"
-          >
-            Decode Planet
-          </a>
+          <Button color="pale-orange" onClick={decodePlanet}>Decode Planet</Button>
         </ButtonBar>
       </div>
+      <hr />
       <div className="lcars-content">
         {planetInfo && (
           <div className="mt-4">
