@@ -2,8 +2,8 @@ import React from 'react'
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
 import { NPCGenerator } from './features/NPCGenerator'
 import { PlanetDecoder } from './features/PlanetDecoder'
-import { BarRunner } from './ui/BarRunner'
-import { Spacer } from './ui/Spacer'
+import { BarRunner } from './lcars/BarRunner'
+import { Spacer } from './lcars/Spacer'
 
 const App: React.FC = () => {
   const nav = (
