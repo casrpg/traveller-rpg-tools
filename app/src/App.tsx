@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
-import { NPCGenerator } from './components/NPCGenerator'
-import { PlanetDecoder } from './components/PlanetDecoder'
+import { NPCGenerator } from './features/NPCGenerator'
+import { PlanetDecoder } from './features/PlanetDecoder'
 import { BarRunner } from './ui/BarRunner'
 import { Spacer } from './ui/Spacer'
 
