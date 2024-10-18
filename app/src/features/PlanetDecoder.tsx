@@ -4,7 +4,8 @@ import { Heading } from '../lcars/Heading'
 import './PlanetDecoder.css'
 import { ButtonBar } from '../lcars/ButtonBar'
 import Button from '../lcars/Button'
-import { Panel } from '../lcars/Panel'
+import { List } from '../lcars/List'
+import { ListItem } from '../lcars/ListItem'
 
 interface PlanetInfo {
   name: string
@@ -49,18 +50,19 @@ export const PlanetDecoder: React.FC = () => {
           <Button color="pale-orange" onClick={decodePlanet}>Decode Planet</Button>
         </ButtonBar>
       </div>
-      <hr />
       {planetInfo && (
-          <ul className='lcars-list'>
-            <li data-test-id="name">{planetInfo.name}</li>
-            <li data-test-id="size">Size: {planetInfo.size}</li>
-            <li data-test-id="atmosphere">Atmosphere: {planetInfo.atmosphere}</li>
-            <li data-test-id="hydrographics">Hydrographics: {planetInfo.hydrographics}</li>
-            <li data-test-id="population">Population: {planetInfo.population}</li>
-            <li data-test-id="government">Government: {planetInfo.government}</li>
-            <li data-test-id="lawLevel">Law Level: {planetInfo.lawLevel}</li>
-            <li data-test-id="techLevel">Tech Level: {planetInfo.techLevel}</li>
-          </ul>
+          <>
+            <Heading align="left">{planetInfo.name}</Heading>
+            <List>
+              <ListItem color="pale-orange" data-test-id="size">Size: <span className='pale-orange'>{planetInfo.size}</span></ListItem>
+              <ListItem color="starlight" data-test-id="atmosphere">Atmosphere: <span className='starlight'>{planetInfo.atmosphere}</span></ListItem>
+              <ListItem color="cyan" data-test-id="hydrographics">Hydrographics: <span className='cyan'>{planetInfo.hydrographics}</span></ListItem>
+              <ListItem color="black-cherry" data-test-id="population">Population: <span className='black-cherry'>{planetInfo.population}</span></ListItem>
+              <ListItem color="ghost-gray" data-test-id="government">Government: <span className='ghost-gray'>{planetInfo.government}</span></ListItem>
+              <ListItem color="light-orange" data-test-id="lawLevel">Law Level: <span className='light-orange'>{planetInfo.lawLevel}</span></ListItem>
+              <ListItem color="blue" data-test-id="techLevel">Tech Level: <span className='blue'>{planetInfo.techLevel}</span></ListItem>
+            </List>
+          </>
       )}
     </>
   )
