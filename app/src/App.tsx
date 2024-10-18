@@ -4,6 +4,7 @@ import { NPCGenerator } from './features/NPCGenerator'
 import { PlanetDecoder } from './features/PlanetDecoder'
 import { BarRunner } from './lcars/BarRunner'
 import { Spacer } from './lcars/Spacer'
+import { Panel } from './lcars/Panel'
 
 const App: React.FC = () => {
   const nav = (
@@ -26,27 +27,29 @@ const App: React.FC = () => {
   return (
     <Router>
       <div className="wrap-everything">
-        <div className="left-frame" data-id-test="menu-container">
-          <div>
-            <div className="panel-3">Traveller RPG <span className="hop">Tools</span></div>
-            {nav}
+        <div className="wrap wrap-standard">
+          <div className="left-frame" data-id-test="menu-container">
+            <div>
+              <Panel kind="3">Traveller RPG <span className="hop">Tools</span></Panel>
+              {nav}
+            </div>
+            <Panel kind="4">04<span className="hop">-41969</span></Panel>
+            <Panel kind="5">05<span className="hop">-1701D</span></Panel>
+            <Panel kind="6">06<span className="hop">-071984</span></Panel>
+            <Panel kind="7">07<span className="hop">-47148</span></Panel>
+            <div className="panel-wrapper">
+              <Panel kind="8">08<span className="hop">-091966</span></Panel>
+            </div>
           </div>
-          <div className="panel-4">04<span className="hop">-41969</span></div>
-          <div className="panel-5">05<span className="hop">-1701D</span></div>
-          <div className="panel-6">06<span className="hop">-071984</span></div>
-          <div className="panel-7">07<span className="hop">-47148</span></div>
-          <div>
-            <div className="panel-8">08<span className="hop">-091966</span></div>
+          <div className="right-frame">
+            <BarRunner bars={[1, 2, 3, 4, 5]} />
+            <Spacer spacers={[2, 2, 3, 4]}/>
+
+            <main>
+              {routes}
+            </main>
+
           </div>
-        </div>
-        <div className="right-frame">
-          <BarRunner bars={[1, 2, 3, 4, 5]} />
-          <Spacer spacers={[2, 2, 3, 4]}/>
-
-          <main>
-            {routes}
-          </main>
-
         </div>
       </div>
     </Router>
@@ -54,13 +57,15 @@ const App: React.FC = () => {
 }
 
 const Home: React.FC = () => (
-  <>
-    <img src="/sfcmd.png" className="sfc" />
-    <div className="lcars-heading">Traveller RPG Tools</div>
-    <div className="lcars-access">
-      user authorization code <span className="blink medium-dark-blue">accepted</span>
-    </div>
-  </>
+  <div className="panel-wrapper">
+    <Panel kind="base">
+      <img src="/sfcmd.png" className="sfc" />
+      <div className="lcars-heading">Traveller RPG Tools</div>
+      <div className="lcars-access">
+        user authorization code <span className="blink medium-dark-blue">accepted</span>
+      </div>
+    </Panel>
+  </div>
 )
 
 export default App
