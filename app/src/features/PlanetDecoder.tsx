@@ -35,7 +35,7 @@ export const PlanetDecoder: React.FC = () => {
   return (
     <>
       <Heading align="right">Planet Decoder</Heading>
-      <Panel kind="2">
+      <Panel kind="2" className='planet-decoder--input-block'>
         <input
           type="text"
           value={planetCode}

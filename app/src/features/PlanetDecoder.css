@@ -3,3 +3,9 @@
   color: var(--green);
   padding: 2px;
 }
+
+.planet-decoder--input-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px; /* Add space between elements */
+}
