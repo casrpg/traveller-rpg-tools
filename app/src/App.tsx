@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
 import { NPCGenerator } from './components/NPCGenerator'
 import { PlanetDecoder } from './components/PlanetDecoder'
 import { BarRunner } from './ui/BarRunner'
+import { Spacer } from './ui/Spacer'
 
 const App: React.FC = () => {
   const nav = (
@@ -39,8 +40,8 @@ const App: React.FC = () => {
           </div>
         </div>
         <div className="right-frame">
-
-          <BarRunner barValues={[6, 5, 6, 10]} />
+          <BarRunner bars={[1, 2, 3, 4, 5]} />
+          <Spacer spacers={[2, 2, 3, 4]}/>
 
           <main>
             {routes}

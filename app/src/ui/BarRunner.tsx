@@ -3,10 +3,10 @@ import { type FC } from 'react'
 export type BarKind = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10
 
 export interface BarRunnerProps {
-  barValues: BarKind[]
+  bars: BarKind[]
 }
 
-export const BarRunner: FC<BarRunnerProps> = ({ barValues }) => {
+export const BarRunner: FC<BarRunnerProps> = ({ bars: barValues }) => {
   return (
     <div className="bar-runner">
       {barValues.map((value, index) => (
