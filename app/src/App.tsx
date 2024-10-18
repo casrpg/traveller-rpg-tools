@@ -7,6 +7,7 @@ import { Spacer } from './lcars/Spacer'
 import { Panel } from './lcars/Panel'
 import { CollapsibleLabel } from './lcars/CollapsibleLabel'
 import { Home } from './features/Home'
+import './App.css'
 
 const App: React.FC = () => {
   const nav = (
@@ -47,7 +48,7 @@ const App: React.FC = () => {
             <BarRunner bars={[1, 2, 3, 4, 5]} />
             <Spacer spacers={[2, 2, 3, 4]}/>
 
-            <main style={{ minWidth: '60vw' }}>
+            <main className="content-panel--main-area">
               {routes}
             </main>
 
