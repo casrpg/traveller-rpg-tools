@@ -46,7 +46,7 @@ const App: React.FC = () => {
           </div>
           <div className="right-frame">
             <BarRunner bars={[1, 2, 3, 4, 5]} />
-            <Spacer spacers={[2, 2, 3, 4]}/>
+            <Spacer spacers={[1, 2, 3, 4]}/>
 
             <main className="content-panel--main-area">
               {routes}
