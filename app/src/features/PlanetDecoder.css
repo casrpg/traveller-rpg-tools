@@ -1,11 +1,22 @@
 .planet-decoder--code-input {
   font-size: .9rem;
-  color: var(--green);
   padding: 2px;
+  height: 48px;
+  margin: auto;
+  text-align: right;
+  width: 210px;
 }
-
 .planet-decoder--input-block {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px; /* Add space between elements */
+    justify-content: center;
+    align-items: center;
+    grid-template-columns: 1fr;
+    gap: 10px;
+}
+
+@media (min-width: 600px) {
+    .planet-decoder--input-block {
+        grid-template-columns: auto auto;
+        justify-content: start;
+    }
 }

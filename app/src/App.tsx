@@ -30,7 +30,7 @@ const App: React.FC = () => {
   return (
     <Router>
       <div className="wrap-everything">
-        <div className="wrap wrap-standard">
+        <div className="wrap" id="column-3">
           <div className="left-frame" data-id-test="menu-container">
             <div>
               <Panel kind="3">Traveller RPG <span className="hop">Tools</span></Panel>
