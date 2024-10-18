@@ -6,8 +6,6 @@ import { ButtonBar } from '../lcars/ButtonBar'
 import Button from '../lcars/Button'
 import { List } from '../lcars/List'
 import { ListItem } from '../lcars/ListItem'
-import { Panel } from '../lcars/Panel'
-
 interface PlanetInfo {
   name: string
   size: number
