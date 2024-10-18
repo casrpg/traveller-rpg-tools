@@ -1,5 +1,5 @@
-import classNames from 'classnames'
 import { type FC, type PropsWithChildren } from 'react'
+import classNames from 'classnames'
 
 export interface HeadingProps {
   align: 'left' | 'right'

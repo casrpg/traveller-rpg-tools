@@ -6,6 +6,7 @@ import { ButtonBar } from '../lcars/ButtonBar'
 import Button from '../lcars/Button'
 import { List } from '../lcars/List'
 import { ListItem } from '../lcars/ListItem'
+import { Panel } from '../lcars/Panel'
 
 interface PlanetInfo {
   name: string
@@ -19,7 +20,7 @@ interface PlanetInfo {
 }
 
 export const PlanetDecoder: React.FC = () => {
-  const [planetCode, setPlanetCode] = useState('')
+  const [planetCode, setPlanetCode] = useState<string>('')
   const [planetInfo, setPlanetInfo] = useState<PlanetInfo | null>(null)
 
   const decodePlanet = async () => {
@@ -52,7 +53,7 @@ export const PlanetDecoder: React.FC = () => {
       </div>
       {planetInfo && (
           <>
-            <Heading align="left">{planetInfo.name}</Heading>
+            <Heading align="right">{planetInfo.name}</Heading>
             <List>
               <ListItem color="pale-orange" data-test-id="size">Size: <span className='pale-orange'>{planetInfo.size}</span></ListItem>
               <ListItem color="starlight" data-test-id="atmosphere">Atmosphere: <span className='starlight'>{planetInfo.atmosphere}</span></ListItem>
