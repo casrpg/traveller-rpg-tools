@@ -1,5 +1,8 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import React, { useState } from 'react'
+import { Heading } from '../lcars/Heading'
+import './PlanetDecoder.css'
+import { Panel } from '../lcars/Panel'
 
 interface PlanetInfo {
   name: string
@@ -30,15 +33,15 @@ export const PlanetDecoder: React.FC = () => {
   }
 
   return (
-    <div className="lcars-panel">
-      <h2 className="mb-4 text-2xl font-bold lcars-header">Planet Decoder</h2>
-      <div className="lcars-content">
+    <>
+      <Heading align="right">Planet Decoder</Heading>
+      <Panel kind="2">
         <input
           type="text"
           value={planetCode}
           onChange={(e) => { setPlanetCode(e.target.value) }}
           placeholder="Enter planet code"
-          className="w-full p-2 mb-4 bg-[#000033] text-[#ff9900] rounded"
+          className="planet-decoder--code-input"
         />
         <button
           onClick={decodePlanet}
@@ -46,6 +49,8 @@ export const PlanetDecoder: React.FC = () => {
         >
           Decode Planet
         </button>
+      </Panel>
+      <div className="lcars-content">
         {planetInfo && (
           <div className="mt-4">
             <div className="lcars-element" data-test-id="name">{planetInfo.name}</div>
@@ -59,6 +64,6 @@ export const PlanetDecoder: React.FC = () => {
           </div>
         )}
       </div>
-    </div>
+    </>
   )
 }
