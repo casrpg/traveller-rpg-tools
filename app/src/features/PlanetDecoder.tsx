@@ -51,15 +51,15 @@ export const PlanetDecoder: React.FC = () => {
       </div>
       {planetInfo && (
           <>
-            <Heading align="right">{planetInfo.name}</Heading>
+            <Heading align="right"><span data-test-id="name">{planetInfo.name}</span></Heading>
             <List>
-              <ListItem color="pale-orange" data-test-id="size">Size: <span className='pale-orange'>{planetInfo.size}</span></ListItem>
-              <ListItem color="starlight" data-test-id="atmosphere">Atmosphere: <span className='starlight'>{planetInfo.atmosphere}</span></ListItem>
-              <ListItem color="cyan" data-test-id="hydrographics">Hydrographics: <span className='cyan'>{planetInfo.hydrographics}</span></ListItem>
-              <ListItem color="black-cherry" data-test-id="population">Population: <span className='black-cherry'>{planetInfo.population}</span></ListItem>
-              <ListItem color="ghost-gray" data-test-id="government">Government: <span className='ghost-gray'>{planetInfo.government}</span></ListItem>
-              <ListItem color="light-orange" data-test-id="lawLevel">Law Level: <span className='light-orange'>{planetInfo.lawLevel}</span></ListItem>
-              <ListItem color="blue" data-test-id="techLevel">Tech Level: <span className='blue'>{planetInfo.techLevel}</span></ListItem>
+              <ListItem color="pale-orange">Size: <span className='pale-orange' data-test-id="size">{planetInfo.size}</span></ListItem>
+              <ListItem color="starlight">Atmosphere: <span className='starlight' data-test-id="atmosphere">{planetInfo.atmosphere}</span></ListItem>
+              <ListItem color="cyan">Hydrographics: <span className='cyan' data-test-id="hydrographics">{planetInfo.hydrographics}</span></ListItem>
+              <ListItem color="black-cherry">Population: <span className='black-cherry' data-test-id="population">{planetInfo.population}</span></ListItem>
+              <ListItem color="ghost-gray">Government: <span className='ghost-gray' data-test-id="government">{planetInfo.government}</span></ListItem>
+              <ListItem color="light-orange">Law Level: <span className='light-orange' data-test-id="lawLevel">{planetInfo.lawLevel}</span></ListItem>
+              <ListItem color="blue">Tech Level: <span className='blue' data-test-id="techLevel">{planetInfo.techLevel}</span></ListItem>
             </List>
           </>
       )}
