@@ -4,6 +4,7 @@ import { Heading } from '../lcars/Heading'
 import './PlanetDecoder.css'
 import { ButtonBar } from '../lcars/ButtonBar'
 import Button from '../lcars/Button'
+import { Panel } from '../lcars/Panel'
 
 interface PlanetInfo {
   name: string
@@ -49,20 +50,18 @@ export const PlanetDecoder: React.FC = () => {
         </ButtonBar>
       </div>
       <hr />
-      <div className="lcars-content">
-        {planetInfo && (
-          <div className="mt-4">
-            <div className="lcars-element" data-test-id="name">{planetInfo.name}</div>
-            <div className="lcars-element" data-test-id="size">Size: {planetInfo.size}</div>
-            <div className="lcars-element" data-test-id="atmosphere">Atmosphere: {planetInfo.atmosphere}</div>
-            <div className="lcars-element" data-test-id="hydrographics">Hydrographics: {planetInfo.hydrographics}</div>
-            <div className="lcars-element" data-test-id="population">Population: {planetInfo.population}</div>
-            <div className="lcars-element" data-test-id="government">Government: {planetInfo.government}</div>
-            <div className="lcars-element" data-test-id="lawLevel">Law Level: {planetInfo.lawLevel}</div>
-            <div className="lcars-element" data-test-id="techLevel">Tech Level: {planetInfo.techLevel}</div>
-          </div>
-        )}
-      </div>
+      {planetInfo && (
+          <ul className='lcars-list'>
+            <li data-test-id="name">{planetInfo.name}</li>
+            <li data-test-id="size">Size: {planetInfo.size}</li>
+            <li data-test-id="atmosphere">Atmosphere: {planetInfo.atmosphere}</li>
+            <li data-test-id="hydrographics">Hydrographics: {planetInfo.hydrographics}</li>
+            <li data-test-id="population">Population: {planetInfo.population}</li>
+            <li data-test-id="government">Government: {planetInfo.government}</li>
+            <li data-test-id="lawLevel">Law Level: {planetInfo.lawLevel}</li>
+            <li data-test-id="techLevel">Tech Level: {planetInfo.techLevel}</li>
+          </ul>
+      )}
     </>
   )
 }

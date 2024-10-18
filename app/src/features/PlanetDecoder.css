@@ -18,7 +18,7 @@
 
 @media (min-width: 600px) {
     .planet-decoder--code-input {
-        margin: auto;
+        margin-right: 1em;
     }
 
     .planet-decoder--input-block {
