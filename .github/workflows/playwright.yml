@@ -14,7 +14,8 @@ jobs:
       with:
         node-version: 20.18.0
     - name: Install dependencies
-      run: rm package-lock.json && rm -rf app/node_modules && rm -rf functions/node_modules && npm i --include=optional
+      # TODO: Make this line just npm i once the issue https://github.com/lovell/sharp/issues/4238 is fixed 
+      run: rm package-lock.json && rm -rf app/node_modules && rm -rf functions/node_modules && npm i
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
     - name: Run Playwright tests
