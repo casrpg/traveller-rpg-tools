@@ -14,7 +14,7 @@ jobs:
       with:
         node-version: 20
     - name: Install dependencies
-      run: npm i --include=optional
+      run: rm package-lock.json && rm -rf app/node_modules && rm -rf functions/node_modules && npm i --include=optional
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
     - name: Run Playwright tests
