@@ -3,7 +3,7 @@
 import { describe, it, expect } from 'vitest'
 import type { HandlerEvent, HandlerContext, HandlerResponse } from '@netlify/functions'
 
-import { handler } from './generate-npc'
+import { handler } from '../src/generate-npc'
 
 describe('generate-npc handler', () => {
   it('should return generated NPC data for a valid POST request', async () => {
