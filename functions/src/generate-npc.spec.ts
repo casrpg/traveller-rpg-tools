@@ -1,5 +1,7 @@
+/* eslint-disable n/handle-callback-err */
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { describe, it, expect } from 'vitest'
-import { type HandlerEvent, type HandlerContext, type HandlerResponse } from '@netlify/functions'
+import type { HandlerEvent, HandlerContext, HandlerResponse } from '@netlify/functions'
 
 import { handler } from './generate-npc'
 
@@ -34,7 +36,7 @@ describe('generate-npc handler', () => {
     expect(response.headers!['Content-Type']).toBe('application/json')
     expect(response.body).toBeDefined()
     const body = JSON.parse(response.body!)
-    expect(body.message).toBe('Method Not Allowed')
+    expect(body).toHaveProperty('message', 'Method Not Allowed')
   })
 })
 

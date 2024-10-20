@@ -1,4 +1,4 @@
-import { type Handler, type HandlerEvent, type HandlerContext } from '@netlify/functions'
+import type { Handler, HandlerEvent, HandlerContext } from '@netlify/functions'
 interface NPC {
   name: string
   occupation: string
