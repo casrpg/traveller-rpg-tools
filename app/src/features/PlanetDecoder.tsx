@@ -50,7 +50,7 @@ export const PlanetDecoder: React.FC = () => {
       </div>
       {planetInfo && (
           <>
-            <Heading align="right"><span data-test-id="name">{planetInfo.name}</span></Heading>
+            <Heading align="right" data-test-id="name">{planetInfo.name}</Heading>
             <List>
               <ListItem color="pale-orange">Size: <span className='pale-orange' data-test-id="size">{planetInfo.size}</span></ListItem>
               <ListItem color="starlight">Atmosphere: <span className='starlight' data-test-id="atmosphere">{planetInfo.atmosphere}</span></ListItem>
