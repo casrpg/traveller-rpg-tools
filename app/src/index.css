@@ -110,15 +110,15 @@ input, textarea, button, select {
 @font-face {
 	font-family: 'Antonio';
 	font-weight: 400;
-	src: url('Antonio-Regular.woff2') format('woff2'),
-			 url('Antonio-Regular.woff') format('woff');
+	src: url('/assets/fonts/Antonio-Regular.woff2') format('woff2'),
+			 url('/assets/fonts/Antonio-Regular.woff') format('woff');
 }
 
 @font-face {
 	font-family: 'Antonio';
 	font-weight: 700;
-	src: url('Antonio-Bold.woff2') format('woff2'),
-			 url('Antonio-Bold.woff') format('woff')
+	src: url('/assets/fonts/Antonio-Bold.woff2') format('woff2'),
+			 url('/assets/fonts/Antonio-Bold.woff') format('woff')
 }
 
 body	{
