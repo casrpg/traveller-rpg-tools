@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import React, { useState } from 'react'
 interface NPC {
   name: string
