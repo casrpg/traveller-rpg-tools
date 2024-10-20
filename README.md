@@ -25,3 +25,7 @@ Put this into the `.vscode/settings.json` file:
   ]
 }
 ```
+
+## LCARS template
+ 
+ Look and feel took from LCARS Inspired Website Template by www.TheLCARS.com and modified.
