@@ -45,7 +45,7 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
     population: decodePopulation(planetCode[5]),
     government: decodeGovernment(planetCode[6]),
     lawLevel: decodeLawLevel(planetCode[7]),
-    techLevel: decodeTechLevel(planetCode[9])
+    techLevel: decodeTechLevel(planetCode[8])
   }
 
   return {
