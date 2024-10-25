@@ -5,6 +5,8 @@ interface Body {
   planetCode: string
 }
 
+const Unknown = 'unknown'
+
 const handler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
   if (event.httpMethod !== 'POST') {
     return {
@@ -74,10 +76,10 @@ const astroportByCode: Record<string, Astroport> = {
 
 function decodeAstroport (code: string): string {
   if (!astroportByCode[code]) {
-    return 'Unknown'
+    return Unknown
   }
   const { quality, dockingPrice, fuel, services } = astroportByCode[code]
-  return `Quality: ${quality}, dockingPrice: ${dockingPrice}, fuel: ${fuel}, services: ${services}}`
+  return `quality: ${quality}, docking price: ${dockingPrice}, fuel: ${fuel}, services: ${services}`
 }
 
 interface PlanetSize {
@@ -104,7 +106,7 @@ const sizeByCode: Record<string, PlanetSize> = {
 
 function decodeSize (code: string): string {
   if (!sizeByCode[code]) {
-    return 'Unknown'
+    return Unknown
   }
   const { diameter, jumpDistance, jumpRapidDistance, gravity, example } = sizeByCode[code]
   return `diameter: ${diameter}, jump distance: ${jumpDistance}, jump rapid distance: ${jumpRapidDistance}, gravity: ${gravity} ${example ? `, e.g.: ${example}` : ''}`
@@ -112,12 +114,12 @@ function decodeSize (code: string): string {
 
 function decodeAtmosphere (code: string): string {
   const atmospheres = ['None', 'Trace', 'Very Thin', 'Thin', 'Standard', 'Dense', 'Very Dense', 'Exotic']
-  return atmospheres[parseInt(code, 16)] || 'Unknown'
+  return atmospheres[parseInt(code, 16)] || Unknown
 }
 
 function decodeTemperature (code: string): string {
   const temperatures = ['Frozen', 'Cold', 'Temperate', 'Hot', 'Boiling']
-  return temperatures[parseInt(code, 16)] || 'Unknown'
+  return temperatures[parseInt(code, 16)] || Unknown
 }
 
 function decodeHydrographics (code: string): string {
@@ -127,12 +129,12 @@ function decodeHydrographics (code: string): string {
 
 function decodePopulation (code: string): string {
   const populations = ['None', 'Few', 'Hundreds', 'Thousands', 'Millions', 'Billions']
-  return populations[parseInt(code, 16)] || 'Unknown'
+  return populations[parseInt(code, 16)] || Unknown
 }
 
 function decodeGovernment (code: string): string {
   const governments = ['None', 'Company/Corporation', 'Participating Democracy', 'Self-Perpetuating Oligarchy', 'Representative Democracy', 'Feudal Technocracy', 'Captive Government', 'Balkanization', 'Civil Service Bureaucracy', 'Impersonal Bureaucracy', 'Charismatic Dictatorship', 'Non-Charismatic Leader', 'Charismatic Oligarchy', 'Religious Dictatorship']
-  return governments[parseInt(code, 16)] || 'Unknown'
+  return governments[parseInt(code, 16)] || Unknown
 }
 
 function decodeLawLevel (code: string): string {
