@@ -3,7 +3,7 @@ import { Heading } from '../lcars/Heading'
 import { List } from '../lcars/List'
 import { ListItem } from '../lcars/ListItem'
 import { ButtonBar } from '../lcars/ButtonBar'
-import Button from '../lcars/Button'
+import { Button } from '../lcars/Button'
 interface NPC {
   name: string
   occupation: string
