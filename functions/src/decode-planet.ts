@@ -5,6 +5,8 @@ interface Body {
   planetCode: string
 }
 
+const Unknown = 'unknown'
+
 const handler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
   if (event.httpMethod !== 'POST') {
     return {
@@ -37,13 +39,14 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
 
   const decodedInfo = {
     name: `Planet ${planetCode}`,
-    size: decodeSize(planetCode[0]),
-    atmosphere: decodeAtmosphere(planetCode[1]),
-    temperature: decodeTemperature(planetCode[2]),
-    hydrographics: decodeHydrographics(planetCode[3]),
-    population: decodePopulation(planetCode[4]),
-    government: decodeGovernment(planetCode[5]),
-    lawLevel: decodeLawLevel(planetCode[6]),
+    astroport: decodeAstroport(planetCode[0]),
+    size: decodeSize(planetCode[1]),
+    atmosphere: decodeAtmosphere(planetCode[2]),
+    temperature: decodeTemperature(planetCode[3]),
+    hydrographics: decodeHydrographics(planetCode[4]),
+    population: decodePopulation(planetCode[5]),
+    government: decodeGovernment(planetCode[6]),
+    lawLevel: decodeLawLevel(planetCode[7]),
     techLevel: decodeTechLevel(planetCode[8])
   }
 
@@ -53,6 +56,32 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
     body: JSON.stringify(decodedInfo)
   }
 }
+
+interface Astroport {
+  quality: string
+  dockingPrice: string
+  fuel: string
+  services: string
+}
+
+const astroportByCode: Record<string, Astroport> = {
+  A: { quality: 'Excelent', dockingPrice: '1D x 1.000 Cr', fuel: 'Refined', services: 'Repairs and all shipyard' },
+  B: { quality: 'Good', dockingPrice: '1D x 500 Cr', fuel: 'Refined', services: 'Repairs and spacecraft shipyard' },
+  C: { quality: 'Routine', dockingPrice: '1D x 1000 Cr', fuel: 'Raw', services: 'Repairs and all shuttle' },
+  D: { quality: 'Poor', dockingPrice: '1D x 10 Cr', fuel: 'Raw', services: 'Limited repairs' },
+  E: { quality: 'Frontier', dockingPrice: 'None', fuel: 'None', services: 'None' },
+  X: { quality: 'No astroport', dockingPrice: 'None', fuel: 'None', services: 'None' }
+
+}
+
+function decodeAstroport (code: string): string {
+  if (!astroportByCode[code]) {
+    return Unknown
+  }
+  const { quality, dockingPrice, fuel, services } = astroportByCode[code]
+  return `quality: ${quality}, docking price: ${dockingPrice}, fuel: ${fuel}, services: ${services}`
+}
+
 interface PlanetSize {
   diameter: string
   jumpDistance: string
@@ -64,7 +93,7 @@ interface PlanetSize {
 const sizeByCode: Record<string, PlanetSize> = {
   0: { diameter: '<1000 Km', jumpDistance: '100.000 Km', jumpRapidDistance: '90.000', gravity: 'microgravity', example: 'Asteroid' },
   1: { diameter: '1.600 Km', jumpDistance: '160.000 Km', jumpRapidDistance: '144.000', gravity: '0,05g', example: 'Triton' },
-  2: { diameter: '3.200 Km', jumpDistance: '320.000 Km', jumpRapidDistance: '288.000', gravity: '0,15,', example: 'Moon' },
+  2: { diameter: '3.200 Km', jumpDistance: '320.000 Km', jumpRapidDistance: '288.000', gravity: '0,15g', example: 'Moon' },
   3: { diameter: '4.800 Km', jumpDistance: '480.000 Km', jumpRapidDistance: '432.000', gravity: '0,25g', example: 'Mercury' },
   4: { diameter: '6.400 Km', jumpDistance: '640.000 Km', jumpRapidDistance: '576.000', gravity: '0,35g', example: 'Less than Mars' },
   5: { diameter: '8.000 Km', jumpDistance: '800.000 Km', jumpRapidDistance: '720.000', gravity: '0,45g', example: 'Mars' },
@@ -77,7 +106,7 @@ const sizeByCode: Record<string, PlanetSize> = {
 
 function decodeSize (code: string): string {
   if (!sizeByCode[code]) {
-    return 'Unknown'
+    return Unknown
   }
   const { diameter, jumpDistance, jumpRapidDistance, gravity, example } = sizeByCode[code]
   return `diameter: ${diameter}, jump distance: ${jumpDistance}, jump rapid distance: ${jumpRapidDistance}, gravity: ${gravity} ${example ? `, e.g.: ${example}` : ''}`
@@ -85,12 +114,12 @@ function decodeSize (code: string): string {
 
 function decodeAtmosphere (code: string): string {
   const atmospheres = ['None', 'Trace', 'Very Thin', 'Thin', 'Standard', 'Dense', 'Very Dense', 'Exotic']
-  return atmospheres[parseInt(code, 16)] || 'Unknown'
+  return atmospheres[parseInt(code, 16)] || Unknown
 }
 
 function decodeTemperature (code: string): string {
   const temperatures = ['Frozen', 'Cold', 'Temperate', 'Hot', 'Boiling']
-  return temperatures[parseInt(code, 16)] || 'Unknown'
+  return temperatures[parseInt(code, 16)] || Unknown
 }
 
 function decodeHydrographics (code: string): string {
@@ -100,12 +129,12 @@ function decodeHydrographics (code: string): string {
 
 function decodePopulation (code: string): string {
   const populations = ['None', 'Few', 'Hundreds', 'Thousands', 'Millions', 'Billions']
-  return populations[parseInt(code, 16)] || 'Unknown'
+  return populations[parseInt(code, 16)] || Unknown
 }
 
 function decodeGovernment (code: string): string {
   const governments = ['None', 'Company/Corporation', 'Participating Democracy', 'Self-Perpetuating Oligarchy', 'Representative Democracy', 'Feudal Technocracy', 'Captive Government', 'Balkanization', 'Civil Service Bureaucracy', 'Impersonal Bureaucracy', 'Charismatic Dictatorship', 'Non-Charismatic Leader', 'Charismatic Oligarchy', 'Religious Dictatorship']
-  return governments[parseInt(code, 16)] || 'Unknown'
+  return governments[parseInt(code, 16)] || Unknown
 }
 
 function decodeLawLevel (code: string): string {
