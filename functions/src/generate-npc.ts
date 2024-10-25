@@ -1,7 +1,20 @@
-import { type Handler } from '@netlify/functions'
+import type { Handler, HandlerEvent, HandlerContext } from '@netlify/functions'
+interface NPC {
+  name: string
+  occupation: string
+  skills: string[]
+  equipment: string[]
+}
 
-const generateNPC: Handler = async (event, context) => {
-  // This is a mock implementation. In a real scenario, you'd have more complex logic here.
+const handler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
+  if (event.httpMethod !== 'POST') {
+    return {
+      statusCode: 405,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: 'Method Not Allowed' })
+    }
+  }
+
   const names = ['Jean-Luc Picard', 'William Riker', 'Data', 'Geordi La Forge', 'Worf', 'Beverly Crusher', 'Deanna Troi']
   const occupations = ['Starship Captain', 'First Officer', 'Science Officer', 'Engineer', 'Security Officer', 'Medical Officer', 'Counselor']
   const skills = ['Leadership', 'Diplomacy', 'Tactics', 'Engineering', 'Combat', 'Medicine', 'Empathy', 'Navigation', 'Xenobiology']
@@ -13,7 +26,7 @@ const generateNPC: Handler = async (event, context) => {
     return shuffled.slice(0, count)
   }
 
-  const npc = {
+  const npc: NPC = {
     name: randomItem(names),
     occupation: randomItem(occupations),
     skills: randomItems(skills, 3),
@@ -22,8 +35,9 @@ const generateNPC: Handler = async (event, context) => {
 
   return {
     statusCode: 200,
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(npc)
   }
 }
 
-export { generateNPC }
+export { handler }
