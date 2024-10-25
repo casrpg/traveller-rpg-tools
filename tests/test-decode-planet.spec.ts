@@ -13,15 +13,15 @@ test('test decode planet', async ({ page }) => {
   await page.goto('http://localhost:8080/');
   await page.getByRole('link', { name: 'Planet Decoder' }).click();
   await page.getByPlaceholder('Enter planet code').click();
-  await page.getByPlaceholder('Enter planet code').fill('A7294718');
+  await page.getByPlaceholder('Enter planet code').fill('AA7294718');
   await page.getByRole('button', { name: 'Decode Planet' }).click();
-  await expect(page.locator(nameLocator)).toHaveText('Planet A7294718');
+  await expect(page.locator(nameLocator)).toHaveText('Planet AA7294718');
   await expect(page.locator(sizeLocator)).toHaveText('Size: diameter: 16.000 Km, jump distance: 1.600.000 Km, jump rapid distance: 1.440.000, gravity: 1,4g , e.g.: Much more than Earth');  //maybe fixed???
   await expect(page.locator(atmosphereLocator)).toHaveText('Atmosphere: Exotic');
   await expect(page.locator(hydrographicsLocator)).toHaveText('Hydrographics: 90% water');
   await expect(page.locator(populationLocator)).toHaveText('Population: Millions');
   await expect(page.locator(governmentLocator)).toHaveText('Government: Balkanization');
   await expect(page.locator(lawLevelLocator)).toHaveText('Law Level: Level 1');
-  await expect(page.locator(techLevelLocator)).toHaveText('Tech Level: TLNaN'); //TODO fix
+  await expect(page.locator(techLevelLocator)).toHaveText('Tech Level: TL8');
 });
 
