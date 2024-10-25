@@ -53,7 +53,7 @@ export const PlanetDecoder: React.FC = () => {
           <>
             <Heading align="right" data-test-id="name">{planetInfo.name}</Heading>
             <List>
-              <ListItem color="pale-orange">Atroport: <span className='pale-orange' data-test-id="astroport">{planetInfo.astroport}</span></ListItem>
+              <ListItem color="black-cherry">Atroport: <span className='black-cherry' data-test-id="astroport">{planetInfo.astroport}</span></ListItem>
               <ListItem color="pale-orange">Size: <span className='pale-orange' data-test-id="size">{planetInfo.size}</span></ListItem>
               <ListItem color="starlight">Atmosphere: <span className='starlight' data-test-id="atmosphere">{planetInfo.atmosphere}</span></ListItem>
               <ListItem color="cyan">Hydrographics: <span className='cyan' data-test-id="hydrographics">{planetInfo.hydrographics}</span></ListItem>
