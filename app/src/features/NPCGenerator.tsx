@@ -1,4 +1,9 @@
 import React, { useState } from 'react'
+import { Heading } from '../lcars/Heading'
+import { List } from '../lcars/List'
+import { ListItem } from '../lcars/ListItem'
+import { ButtonBar } from '../lcars/ButtonBar'
+import { Button } from '../lcars/Button'
 interface NPC {
   name: string
   occupation: string
@@ -20,24 +25,19 @@ export const NPCGenerator: React.FC = () => {
   }
 
   return (
-    <div className="lcars-panel">
-      <h2 className="mb-4 text-2xl font-bold lcars-header">NPC Generator</h2>
-      <div className="lcars-content">
-        <button
-          onClick={generateNPC}
-          className="mb-4 lcars-button"
-        >
-          Generate NPC
-        </button>
-        {npc && (
-          <div className="mt-4">
-            <div className="lcars-element">{npc.name}</div>
-            <div className="lcars-element">Occupation: {npc.occupation}</div>
-            <div className="lcars-element">Skills: {npc.skills.join(', ')}</div>
-            <div className="lcars-element">Equipment: {npc.equipment.join(', ')}</div>
-          </div>
-        )}
-      </div>
-    </div>
+    <>
+      <Heading align="left">NPC Generator</Heading>
+      <ButtonBar alignment="space-between">
+        <Button color="orange" onClick={generateNPC}>Generate NPC</Button>
+      </ButtonBar>
+      {npc && (
+        <List>
+          <ListItem color="orange" >Name: {npc.name}</ListItem>
+          <ListItem color="cyan">Occupation: <span className="cyan">{npc.occupation}</span></ListItem>
+          <ListItem color="green">Skills: <span className="green">{npc.skills.join(', ')}</span></ListItem>
+          <ListItem color="pale-orange">Equipment: <span className="pale-orange">{npc.equipment.join(', ')}</span></ListItem>
+        </List>
+      )}
+    </>
   )
 }

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Heading } from '../lcars/Heading'
 import './PlanetDecoder.css'
 import { ButtonBar } from '../lcars/ButtonBar'
-import Button from '../lcars/Button'
+import { Button } from '../lcars/Button'
 import { List } from '../lcars/List'
 import { ListItem } from '../lcars/ListItem'
 interface PlanetInfo {

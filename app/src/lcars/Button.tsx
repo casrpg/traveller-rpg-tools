@@ -9,7 +9,7 @@ interface ButtonProps {
   onClick?: () => void
 }
 
-const Button: FC<PropsWithChildren<ButtonProps>> = ({ color, className, onClick, children }) => {
+export const Button: FC<PropsWithChildren<ButtonProps>> = ({ color, className, onClick, children }) => {
   return (
         <a
             role="button"
@@ -25,5 +25,3 @@ const Button: FC<PropsWithChildren<ButtonProps>> = ({ color, className, onClick,
         </a>
   )
 }
-
-export default Button
