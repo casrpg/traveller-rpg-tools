@@ -6,13 +6,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint ./src/**/* ./tests/**/*",
-    "lint:fix": "eslint --fix ./src/**/* ./tests/**/*",
-    "test": "vitest"
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "test": "vitest",
+    "remote:api:client:generate": "npx @hey-api/openapi-ts -i https://raw.githubusercontent.com/carloscasalar/traveller-rpg-api/refs/heads/main/pkg/apirest/api.yml -o src/generate-npc/npc-gen-client -c @hey-api/client-fetch && npm run lint:fix"
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@hey-api/client-fetch": "0.5.7",
     "@netlify/functions": "2.8.2"
   },
   "devDependencies": {

@@ -1,8 +1,8 @@
+/* eslint @typescript-eslint/no-unsafe-member-access: "off" */
 import globals from 'globals'
 import pluginJs from '@eslint/js'
 import tseslint from 'typescript-eslint'
 import love from 'eslint-config-love'
-
 
 export default [
   {files: ['**/*.{js,mjs,cjs,ts}']},
@@ -25,4 +25,5 @@ export default [
     '@typescript-eslint/no-unnecessary-condition': 'off',
     '@typescript-eslint/prefer-destructuring': 'off',
   }},
+  {ignores: ['**/npc-gen-client']}
 ];
