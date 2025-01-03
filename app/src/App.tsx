@@ -18,7 +18,6 @@ const App: React.FC = () => {
     </nav>
   )
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const routes = (
     <Routes>
       <Route path="/npc-generator" element={<NPCGenerator />} />
