@@ -5,7 +5,7 @@ import love from 'eslint-config-love'
 
 
 export default [
-  {files: ['**/*.{js,mjs,cjs,ts}']},
+  {files: ['**/*.{js,mjs,cjs,ts}'], ignores: ['src/generate-npc/npc-gen-client/**']},
   {languageOptions: { globals: globals.browser }},
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,

@@ -1,14 +1,10 @@
 import type { Handler, HandlerEvent, HandlerContext } from '@netlify/functions'
-import { createClient, type NormalizeOAS } from 'fets'
-// eslint-disable-next-line @typescript-eslint/consistent-type-imports
-import openAPIDoc from './api.json'
+import { generateNpc } from './npc-gen-client/sdk.gen'
+import { createClient, createConfig } from '@hey-api/client-fetch'
 
-type Client = NormalizeOAS<typeof openAPIDoc>
-const client = createClient({
-  endpoint: 'http://traveller-rpg-api.sir-ragnar.workers.dev',
-}) as Client
-
-
+const client = createClient(createConfig({
+  baseUrl: 'http://traveller-rpg-api.sir-ragnar.workers.dev'
+}))
 interface NPC {
   name: string
   occupation: string
@@ -28,38 +24,57 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
   const names = ['Jean-Luc Picard', 'William Riker', 'Data', 'Geordi La Forge', 'Worf', 'Beverly Crusher', 'Deanna Troi']
   const occupations = ['Starship Captain', 'First Officer', 'Science Officer', 'Engineer', 'Security Officer', 'Medical Officer', 'Counselor']
   const skills = ['Leadership', 'Diplomacy', 'Tactics', 'Engineering', 'Combat', 'Medicine', 'Empathy', 'Navigation', 'Xenobiology']
-  const equipment = ['Phaser', 'Tricorder', 'Communicator Badge', 'Medical Kit', 'Engineering Tool Kit', 'Universal Translator']
+  // TODO: Build better and complex equipment list, see https://github.com/Grauenwolf/TravellerTools/blob/9d2a33b990796e5afb7821d87ef6258b688956f5/TravellerTools/Grauenwolf.TravellerTools.Web/wwwroot/App_Data/Equipment.csv
+  const equipment = [
+    'Portable Computer/2', 
+    'Commdot', 
+    'Medkit (TL12)',
+    'Laser Pistol (3D+3, Zero-G)', 
+    'Stunner (3D, Stun)', 
+    'Truncheon (2D)', 
+    'Armor: Poly Carapace (+16)', 
+    'Decryptor (TL12)',
+    'Tailored Vacc Suit (+8)',
+    'Ballistic Tracking Lenses (TL12)',
+  ]
   
-  const randomItem = (array: string[]): string => array[Math.floor(Math.random() * array.length)]
-  const randomItems = (array: string[], count: number): string[] => {
+  const randomItem = <T>(array: T[]): T => array[Math.floor(Math.random() * array.length)]
+  const randomItems = <T>(array: T[], count: number): T[] => {
       const shuffled = array.sort(() => 0.5 - Math.random())
       return shuffled.slice(0, count)
     }
-    try{
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        const response = await client['/api/npcs/single'].post({ 
-          json: {
-              role: randomItem(['diplomat', 'engineer', 'entertainer', 'gunner', 'leader', 'marine', 'medic', 'navigator', 'pilot', 'scout', 'steward', 'technician', 'thug', 'trader']),
+    try {
+        const result = await generateNpc({
+            client,
+            body: {
+              role: randomItem(['pilot', 'navigator', 'engineer', 'steward', 'medic', 'marine', 'gunner', 'scout', 'technician', 'leader', 'diplomat', 'entertainer', 'trader', 'thug']),
               citizen_category: randomItem(['below_average', 'average', 'above_average', 'exceptional']),
-              experiences: randomItem(['recruit', 'rookie', 'intermediate', 'regular', 'veteran', 'elite']),
+              experience: randomItem(['recruit', 'rookie', 'intermediate', 'regular', 'veteran', 'elite']),
               gender: randomItem(['female', 'male', 'unspecified'])
           }
         })
-        const generatedNPC = await response.json()
-        const npc: NPC = {
-            name: generatedNPC['first_name'] + ' ' + generatedNPC['surname'],
-            occupation: generatedNPC.role,
+        
+        if (result.error == null) {
+          const generatedNPC = result.data
+          const capitalizeFirstLetter = (string: string):string => string.charAt(0).toUpperCase() + string.slice(1)
+
+          const npc: NPC = {
+            name: generatedNPC.first_name + ' ' + generatedNPC.surname,
+            occupation: capitalizeFirstLetter(generatedNPC.role),
             skills: generatedNPC.skills,
-            equipment: [],
-        }
-        console.log(generatedNPC)
-        return {
-            statusCode: 200,
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(npc)
+            equipment: randomItems(equipment, 2),
           }
+          console.log(generatedNPC)
+          return {
+              statusCode: 200,
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(npc)
+            }
+        } else {
+          console.error('error while calling api', result.error)
+        }
     }catch(e){
-        console.error('error while calling api', e)
+        console.error('unexpected error while calling api', e)
     }
 
   const npc: NPC = {

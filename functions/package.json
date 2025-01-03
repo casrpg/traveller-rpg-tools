@@ -9,16 +9,13 @@
     "lint": "eslint ./src/**/* ./tests/**/*",
     "lint:fix": "eslint --fix ./src/**/* ./tests/**/*",
     "test": "vitest",
-    "remote:api:spec:yml:download": "curl -o ./src/generate-npc/api.yml https://raw.githubusercontent.com/carloscasalar/traveller-rpg-api/refs/heads/main/pkg/apirest/api.yml",
-    "remote:api:spec:yml:clean": "rm ./src/generate-npc/api.yml",
-    "remote:api:spec:yml:tojson": "node -e \"const yaml = require('js-yaml'); const fs = require('fs'); const file = './src/generate-npc/api.yml'; const output = './src/generate-npc/api.json'; const doc = yaml.load(fs.readFileSync(file, 'utf8')); fs.writeFileSync(output, JSON.stringify(doc, null, 2));\"",
-    "remote:api:spec:json:generate": "npm run remote:api:spec:yml:download && npm run remote:api:spec:yml:clean && npm run remote:api:spec:yml:tojson"
+    "remote:api:client:generate": "npx @hey-api/openapi-ts -i https://raw.githubusercontent.com/carloscasalar/traveller-rpg-api/refs/heads/main/pkg/apirest/api.yml -o src/generate-npc/npc-gen-client -c @hey-api/client-fetch && npm run lint:fix"
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@netlify/functions": "2.8.2",
-    "fets": "0.8.4"
+    "@hey-api/client-fetch": "0.5.7",
+    "@netlify/functions": "2.8.2"
   },
   "devDependencies": {
     "@eslint/js": "9.13.0",
