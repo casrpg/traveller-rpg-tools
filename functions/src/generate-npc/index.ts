@@ -20,10 +20,7 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
       body: JSON.stringify({ error: 'Method Not Allowed' })
     }
   }
-  
-  const names = ['Jean-Luc Picard', 'William Riker', 'Data', 'Geordi La Forge', 'Worf', 'Beverly Crusher', 'Deanna Troi']
-  const occupations = ['Starship Captain', 'First Officer', 'Science Officer', 'Engineer', 'Security Officer', 'Medical Officer', 'Counselor']
-  const skills = ['Leadership', 'Diplomacy', 'Tactics', 'Engineering', 'Combat', 'Medicine', 'Empathy', 'Navigation', 'Xenobiology']
+
   // TODO: Build better and complex equipment list, see https://github.com/Grauenwolf/TravellerTools/blob/9d2a33b990796e5afb7821d87ef6258b688956f5/TravellerTools/Grauenwolf.TravellerTools.Web/wwwroot/App_Data/Equipment.csv
   const equipment = [
     'Portable Computer/2', 
@@ -72,23 +69,20 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
             }
         } else {
           console.error('error while calling api', result.error)
+          return {
+            statusCode: 500,
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ error: 'Internal Sever Error' })
+          }
         }
-    }catch(e){
+    } catch(e) {
         console.error('unexpected error while calling api', e)
+        return {
+          statusCode: 500,
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ error: 'Internal Server Error' })
+        }
     }
-
-  const npc: NPC = {
-    name: randomItem(names),
-    occupation: randomItem(occupations),
-    skills: randomItems(skills, 3),
-    equipment: randomItems(equipment, 2)
-  }
-
-  return {
-    statusCode: 200,
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(npc)
-  }
 }
 
 export { handler }
