@@ -108,14 +108,11 @@ const handler: Handler = async (
       },
     });
 
-    const isSuccessResult = (result: unknown): result is SuccessResult => {
-      return typeof result === "object" && result !== null && "data" in result;
-    };
-    const isErrorResult = (result: unknown): result is ErrorResult => {
-      return typeof result === "object" && result !== null && "error" in result;
-    };
+    const isSuccessResult = (result: unknown): result is SuccessResult => typeof result === "object" && result !== null && "data" in result;
+    const isErrorResult = (result: unknown): result is ErrorResult => typeof result === "object" && result !== null && "error" in result;
 
     if (isSuccessResult(result)) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
       const generatedNPC = result.data as RemoteNPC;
       const capitalizeFirstLetter = (string: string): string =>
         string.charAt(0).toUpperCase() + string.slice(1);
@@ -142,8 +139,7 @@ const handler: Handler = async (
 
       const formatCharacteristics = (
         characteristics: RemoteCharacteristics
-      ): Characteristics => {
-        return {
+      ): Characteristics => ({
           STR: {
             value: characteristics.STR,
             modifier: characteristicModifier(characteristics.STR),
@@ -168,8 +164,7 @@ const handler: Handler = async (
             value: characteristics.SOC,
             modifier: characteristicModifier(characteristics.SOC),
           },
-        };
-      };
+        });
 
       const npc: NPC = {
         name: `${generatedNPC.first_name} ${generatedNPC.surname}`,

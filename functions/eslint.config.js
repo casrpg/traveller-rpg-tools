@@ -16,6 +16,8 @@ export default [
   {rules: {
     '@typescript-eslint/init-declarations': 'off',
     '@typescript-eslint/no-non-null-assertion': 'off',
+    'eslint-comments/require-description': 'off',
+    'no-console': 'off',
     // Temporary disabled until fixing the pipeline
     '@typescript-eslint/no-unused-vars': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
