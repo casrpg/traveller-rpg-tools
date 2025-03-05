@@ -25,7 +25,9 @@ export default [
       '@typescript-eslint/explicit-function-return-type': 'off',
       '@typescript-eslint/no-misused-promises': 'off',
       '@typescript-eslint/promise-function-async': 'off',
-      'react/react-in-jsx-scope': 'off'
+      'react/react-in-jsx-scope': 'off',
+      'eslint-comments/require-description': 'off',
+      'no-console': 'off',
     }
   }
 ];

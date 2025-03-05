@@ -7,6 +7,7 @@ interface Body {
 
 const Unknown = 'unknown'
 
+// eslint-disable-next-line @typescript-eslint/require-await
 const handler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
   if (event.httpMethod !== 'POST') {
     return {

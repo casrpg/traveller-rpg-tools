@@ -1,5 +1,6 @@
 /* eslint-disable n/handle-callback-err */
 /* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable @typescript-eslint/no-unsafe-type-assertion */
 import { describe, it, expect } from 'vitest'
 import type { HandlerEvent, HandlerContext, HandlerResponse } from '@netlify/functions'
 
