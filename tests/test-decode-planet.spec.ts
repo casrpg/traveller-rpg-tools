@@ -19,7 +19,7 @@ test('test decode planet', async ({ page }) => {
   await expect(page.locator(nameLocator)).toHaveText('Planet AA7294718');
   await expect(page.locator(astroportLocator)).toHaveText('quality: Excelent, docking price: 1D x 1.000 Cr, fuel: Refined, services: Repairs and all shipyard');
   await expect(page.locator(sizeLocator)).toHaveText('diameter: 16.000 Km, jump distance: 1.600.000 Km, jump rapid distance: 1.440.000, gravity: 1,4g , e.g.: Much more than Earth');
-  await expect(page.locator(atmosphereLocator)).toHaveText('Exotic');
+  await expect(page.locator(atmosphereLocator)).toHaveText('Standard / Tainted');
   await expect(page.locator(hydrographicsLocator)).toHaveText('90% water');
   await expect(page.locator(populationLocator)).toHaveText('Millions');
   await expect(page.locator(governmentLocator)).toHaveText('Balkanization');
