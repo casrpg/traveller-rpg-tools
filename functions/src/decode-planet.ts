@@ -110,13 +110,43 @@ function decodeSize (code: string): string {
     return Unknown
   }
   const { diameter, jumpDistance, jumpRapidDistance, gravity, example } = sizeByCode[code]
-  return `diameter: ${diameter}, jump distance: ${jumpDistance}, jump rapid distance: ${jumpRapidDistance}, gravity: ${gravity} ${example ? `, e.g.: ${example}` : ''}`
+  return `diameter: ${diameter}, jump distance: ${jumpDistance}, jump rapid distance: ${jumpRapidDistance}, gravity: ${gravity}, e.g.: ${example}`
+}
+
+interface Atmosphere {
+  specificDescription: string
+  generalDescription: string
+  pressure: string
+  remarks: string
+}
+
+const AtmosphereByCode: Record<string, Atmosphere> = {
+  0: { specificDescription: 'Vacuum', generalDescription: 'Vacuum', pressure: '<0.001 atm', remarks: 'Requires a vacc suit' },
+  1: { specificDescription: 'Trace', generalDescription: 'Vacuum', pressure: '0.001-0.09 atm', remarks: 'Requires a vacc suit' },
+  2: { specificDescription: 'Very thin / Tainted', generalDescription: 'Vacuum', pressure: '0.10-0.42 atm', remarks: 'Requires a filter respirator combination' },
+  3: { specificDescription: 'Very thin', generalDescription: 'Vacuum', pressure: '0.10-0.42 atm', remarks: 'Requires a filter respirator combination' },
+  4: { specificDescription: 'Thin / Tainted', generalDescription: 'Thin', pressure: '0.43-0.70 atm', remarks: 'Requires a filter mask. Poissoned or something like that' },
+  5: { specificDescription: 'Thin', generalDescription: 'Thin', pressure: '0.43-0.70 atm', remarks: 'Respirable' },
+  6: { specificDescription: 'Standard', generalDescription: 'Standard', pressure: '0.71-1.49 atm', remarks: 'Earthlike' },
+  7: { specificDescription: 'Standard / Tainted', generalDescription: 'Standard', pressure: '0.71-1.49 atm', remarks: 'Tainted requires a filter mask' },
+  8: { specificDescription: 'Dense', generalDescription: 'Dense', pressure: '	1.50-2.49 atm', remarks: 'Respirable' },
+  9: { specificDescription: 'Dense / Tainted', generalDescription: 'Dense', pressure: '1.50-2.49 atm', remarks: 'Tainted requires a filter mask' },
+  A: { specificDescription: 'Exotic', generalDescription: 'Exotic , Conventional', pressure: 'Varies', remarks: 'An unusual gas mix which requires oxygen tanks' },
+  B: { specificDescription: 'Corrosive', generalDescription: 'Exotic , Conventional', pressure: 'Varies', remarks: 'A concentrated gas mix or unusual temperature creates a corrosive environment. Requires a Hostile environment suit or vacc suit.' },
+  C: { specificDescription: 'Insidious', generalDescription: 'Exotic, Conventional', pressure: 'Varies', remarks: 'Similar to a corrosive atmosphere, but extreme conditions cause the corrosive effects to defeat any protective measures in 2 to 12 hours.' },
+  D: { specificDescription: 'Dense, high', generalDescription: 'Exotic, Unusual', pressure: '2.5 atm or greater', remarks: 'Pressure at or below sea level is too great to support life but is breathable at higher altitudes.' },
+  E: { specificDescription: 'Ellipsoid', generalDescription: 'Exotic, Unusual', pressure: '0.5 atm or less', remarks: 'The world’s surface is ellipsoidal, not spherical. Because the atmosphere remains spherical, surface atmospheric pressure ranges from very high at the middle to very low at the ends.' },
+  F: { specificDescription: 'Thin, low', generalDescription: 'Exotic, Unusual', pressure: 'Varies', remarks: 'The atmosphere is un-breathable at most altitudes except the very low ones' }
 }
 
 function decodeAtmosphere (code: string): string {
-  const atmospheres = ['None', 'Trace', 'Very Thin', 'Thin', 'Standard', 'Dense', 'Very Dense', 'Exotic']
-  return atmospheres[parseInt(code, 16)] || Unknown
+  if (!AtmosphereByCode[code]) {
+    return Unknown
+  }
+  const { specificDescription, generalDescription, pressure, remarks } = AtmosphereByCode[code]
+  return `Specific description: ${specificDescription}, General description: ${generalDescription}, Pressure: ${pressure}, Remarks: ${remarks}`
 }
+
 
 function decodeTemperature (code: string): string {
   const temperatures = ['Frozen', 'Cold', 'Temperate', 'Hot', 'Boiling']
