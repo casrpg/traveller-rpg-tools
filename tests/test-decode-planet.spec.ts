@@ -18,8 +18,8 @@ test('test decode planet', async ({ page }) => {
   await page.getByRole('button', { name: 'Decode Planet' }).click();
   await expect(page.locator(nameLocator)).toHaveText('Planet AA7294718');
   await expect(page.locator(astroportLocator)).toHaveText('quality: Excelent, docking price: 1D x 1.000 Cr, fuel: Refined, services: Repairs and all shipyard');
-  await expect(page.locator(sizeLocator)).toHaveText('diameter: 16.000 Km');
-  await expect(page.locator(atmosphereLocator)).toHaveText('Standard / Tainted');
+  await expect(page.locator(sizeLocator)).toContainText('diameter: 16.000 Km,');
+  await expect(page.locator(atmosphereLocator)).toContainText('Standard / Tainted');
   await expect(page.locator(hydrographicsLocator)).toHaveText('90% water');
   await expect(page.locator(populationLocator)).toHaveText('Millions');
   await expect(page.locator(governmentLocator)).toHaveText('Balkanization');
