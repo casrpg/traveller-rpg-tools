@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Heading } from '../lcars/Heading'
+import { LCARSSelector } from '../lcars/LCARSSelector';
 import { List } from '../lcars/List'
 import { ListItem } from '../lcars/ListItem'
 import { ButtonBar } from '../lcars/ButtonBar'
@@ -16,12 +17,25 @@ interface NPC {
 
 const allCharacteristics: Characteristic[] = ['STR', 'DEX', 'END', 'INT', 'EDU', 'SOC']
 
+const availableRoles = [
+  "pilot", "navigator", "engineer", "steward", "medic", "marine",
+  "gunner", "scout", "technician", "leader", "diplomat",
+  "entertainer", "trader", "thug"
+];
+
 export const NPCGenerator: React.FC = () => {
   const [npc, setNPC] = useState<NPC | null>(null)
+  const [selectedRole, setSelectedRole] = useState<string | null>(availableRoles[0]);
 
   const generateNPC = async () => {
     try {
-      const response = await fetch('/api/generate-npc', { method: 'POST' })
+      const response = await fetch('/api/generate-npc', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ role: selectedRole }), // Add the selected role
+      })
       const data: NPC = await response.json()
       setNPC(data)
     } catch (error) {
@@ -33,6 +47,13 @@ export const NPCGenerator: React.FC = () => {
     <>
       <Heading align="left">NPC Generator</Heading>
       <ButtonBar alignment="space-between">
+        <LCARSSelector
+          label="Role"
+          options={availableRoles}
+          selectedOption={selectedRole}
+          onOptionSelect={setSelectedRole}
+          color="blue" // Or another LCARS color
+        />
         <Button color="orange" onClick={generateNPC}>Generate NPC</Button>
       </ButtonBar>
       {npc && (

@@ -49,6 +49,29 @@ const handler: Handler = async (
     };
   }
 
+  let requestBody = {};
+  if (event.body) {
+    try {
+      requestBody = JSON.parse(event.body);
+    } catch (error) {
+      console.error("Error parsing request body:", error);
+      return {
+        statusCode: 400,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ error: "Bad Request: Invalid JSON" }),
+      };
+    }
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const requestedRole = (requestBody as any)?.role;
+
+  const validRoles = [
+    "pilot", "navigator", "engineer", "steward", "medic", "marine",
+    "gunner", "scout", "technician", "leader", "diplomat",
+    "entertainer", "trader", "thug"
+  ];
+
   // TODO: Build better and complex equipment list, see https://github.com/Grauenwolf/TravellerTools/blob/9d2a33b990796e5afb7821d87ef6258b688956f5/TravellerTools/Grauenwolf.TravellerTools.Web/wwwroot/App_Data/Equipment.csv
   const equipment = [
     "Portable Computer/2",
@@ -71,25 +94,15 @@ const handler: Handler = async (
   };
 
   try {
+    let roleToUse = randomItem(validRoles); // Default to random
+    if (requestedRole && validRoles.includes(requestedRole)) {
+      roleToUse = requestedRole;
+    }
+
     const result = await generateNpc({
       client,
       body: {
-        role: randomItem([
-          "pilot",
-          "navigator",
-          "engineer",
-          "steward",
-          "medic",
-          "marine",
-          "gunner",
-          "scout",
-          "technician",
-          "leader",
-          "diplomat",
-          "entertainer",
-          "trader",
-          "thug",
-        ]),
+        role: roleToUse, // Use the determined role
         citizen_category: randomItem([
           "below_average",
           "average",
