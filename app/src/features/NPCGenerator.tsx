@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Heading } from '../lcars/Heading'
-import { LCARSSelector } from '../lcars/LCARSSelector';
+import { RoleSelector } from '../lcars/RoleSelector' // Import RoleSelector
 import { List } from '../lcars/List'
 import { ListItem } from '../lcars/ListItem'
 import { ButtonBar } from '../lcars/ButtonBar'
@@ -17,7 +17,7 @@ interface NPC {
 
 const allCharacteristics: Characteristic[] = ['STR', 'DEX', 'END', 'INT', 'EDU', 'SOC']
 
-const availableRoles = [
+const AVAILABLE_ROLES: string[] = [
   "pilot", "navigator", "engineer", "steward", "medic", "marine",
   "gunner", "scout", "technician", "leader", "diplomat",
   "entertainer", "trader", "thug"
@@ -25,16 +25,18 @@ const availableRoles = [
 
 export const NPCGenerator: React.FC = () => {
   const [npc, setNPC] = useState<NPC | null>(null)
-  const [selectedRole, setSelectedRole] = useState<string | null>(availableRoles[0]);
+  const [selectedRole, setSelectedRole] = useState<string>(AVAILABLE_ROLES[0]); // Initialize with the first role
 
   const generateNPC = async () => {
     try {
+      // Ensure selectedRole has a value; fallback to first role if somehow null/undefined, though unlikely with init
+      const roleToSend = selectedRole || AVAILABLE_ROLES[0];
       const response = await fetch('/api/generate-npc', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ role: selectedRole }), // Add the selected role
+        body: JSON.stringify({ role: roleToSend }),
       })
       const data: NPC = await response.json()
       setNPC(data)
@@ -46,14 +48,12 @@ export const NPCGenerator: React.FC = () => {
   return (
     <>
       <Heading align="left">NPC Generator</Heading>
-      <ButtonBar alignment="space-between">
-        <LCARSSelector
-          label="Role"
-          options={availableRoles}
-          selectedOption={selectedRole}
-          onOptionSelect={setSelectedRole}
-          color="blue" // Or another LCARS color
-        />
+      <RoleSelector
+        roles={AVAILABLE_ROLES}
+        selectedRole={selectedRole}
+        onRoleSelect={setSelectedRole}
+      />
+      <ButtonBar alignment="space-between" className="mt-1"> {/* Added margin-top for spacing */}
         <Button color="orange" onClick={generateNPC}>Generate NPC</Button>
       </ButtonBar>
       {npc && (
