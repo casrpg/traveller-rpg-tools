@@ -37,6 +37,27 @@ interface ErrorResult {
   error: string;
 }
 
+interface RequestBody {
+  role?: string;
+}
+
+const validRoles = [
+  "pilot",
+  "navigator",
+  "engineer",
+  "steward",
+  "medic",
+  "marine",
+  "gunner",
+  "scout",
+  "technician",
+  "leader",
+  "diplomat",
+  "entertainer",
+  "trader",
+  "thug",
+];
+
 const handler: Handler = async (
   event: HandlerEvent,
   context: HandlerContext
@@ -70,26 +91,35 @@ const handler: Handler = async (
     return shuffled.slice(0, count);
   };
 
+  let selectedRole: string;
+  let parsedBody: RequestBody | null = null;
+
+  if (event.body) {
+    try {
+      parsedBody = JSON.parse(event.body) as RequestBody;
+    } catch (error) {
+      console.warn("Malformed JSON body:", error);
+      // Malformed body, will fall back to random role
+    }
+  }
+
+  if (parsedBody && parsedBody.role && validRoles.includes(parsedBody.role)) {
+    selectedRole = parsedBody.role;
+    console.log(`Using provided role: ${selectedRole}`);
+  } else {
+    if (parsedBody && parsedBody.role) {
+      console.log(`Invalid role provided: ${parsedBody.role}. Falling back to random role.`);
+    } else {
+      console.log("No role provided or body malformed. Falling back to random role.");
+    }
+    selectedRole = randomItem(validRoles);
+  }
+
   try {
     const result = await generateNpc({
       client,
       body: {
-        role: randomItem([
-          "pilot",
-          "navigator",
-          "engineer",
-          "steward",
-          "medic",
-          "marine",
-          "gunner",
-          "scout",
-          "technician",
-          "leader",
-          "diplomat",
-          "entertainer",
-          "trader",
-          "thug",
-        ]),
+        role: selectedRole,
         citizen_category: randomItem([
           "below_average",
           "average",
