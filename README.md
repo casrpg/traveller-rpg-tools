@@ -4,6 +4,18 @@ This is a work in progress project to create a set of tools to help with the Tra
 ## Install
 Run `npm install`
 
+## Configuration
+
+### Analytics
+This site includes Counterscale.dev analytics integration. To set up analytics:
+
+1. Deploy your own Counterscale instance following the [Counterscale installation guide](https://github.com/benvinegar/counterscale#installation)
+2. Update the analytics configuration in `app/index.html`:
+   - Replace `https://counterscale.example.com/tracker.js` with your Counterscale deployment URL
+   - Update the `data-site-id` attribute with your site identifier
+
+The current configuration uses placeholder values and needs to be customized for your deployment.
+
 ## Start the app
 This app has a lambda function backend and a vite frontend. To start the whole app run `npm start`.
 
