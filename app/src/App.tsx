@@ -7,6 +7,7 @@ import { Spacer } from './lcars/Spacer'
 import { Panel } from './lcars/Panel'
 import { CollapsibleLabel } from './lcars/CollapsibleLabel'
 import { Home } from './features/Home'
+import { Counterscale } from './utils/analytics'
 import './App.css'
 
 const App: React.FC = () => {
@@ -28,6 +29,7 @@ const App: React.FC = () => {
 
   return (
     <Router>
+      <Counterscale />
       <div className="wrap-everything">
         <div className="wrap" id="column-3">
           <div className="left-frame" data-id-test="menu-container">
