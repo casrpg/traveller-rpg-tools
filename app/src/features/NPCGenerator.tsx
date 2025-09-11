@@ -43,13 +43,13 @@ export const NPCGenerator: React.FC = () => {
             {allCharacteristics
               .map((characteristic) => [characteristic, npc.characteristics[characteristic].value, npc.characteristics[characteristic].modifier])
               .map(([characteristic, value, modifier], index) => (
-                <>
-                  <span key={characteristic} className="blue"> {characteristic} {value} </span>
+                <React.Fragment key={characteristic}>
+                  <span className="blue"> {characteristic} {value} </span>
                   <span className="medium-dark-blue">
                     ({Number(modifier)>0?'+':''}{modifier})
                   </span>
                   {index === allCharacteristics.length - 1?' ':', '}
-                </>
+                </React.Fragment>
               ))}
           </ListItem>
           <ListItem color="green">Skills: <span className="green">{npc.skills.join(', ')}</span></ListItem>
