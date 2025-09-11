@@ -12,9 +12,11 @@ declare global {
   }
 }
 
+const DEFAULT_COUNTERSCALE_SITE_ID = 'traveller-rpg-api';
+
 export const Counterscale: React.FC<CounterscaleProps> = ({ 
   url = import.meta.env.VITE_COUNTERSCALE_URL, 
-  siteId = import.meta.env.VITE_COUNTERSCALE_SITE_ID || 'traveller-rpg-api' 
+  siteId = import.meta.env.VITE_COUNTERSCALE_SITE_ID || DEFAULT_COUNTERSCALE_SITE_ID 
 }) => {
   useEffect(() => {
     // Only load analytics if URL is provided and we're not in development
