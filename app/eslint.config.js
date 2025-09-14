@@ -1,23 +1,23 @@
-import globals from "globals";
-import pluginJs from "@eslint/js";
-import tseslint from "typescript-eslint";
-import pluginReact from "eslint-plugin-react";
-import love from "eslint-config-love";
+import globals from 'globals';
+import pluginJs from '@eslint/js';
+import tseslint from 'typescript-eslint';
+import pluginReact from 'eslint-plugin-react';
+import love from 'eslint-config-love';
 
 export default [
-  { files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"] },
+  { files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'] },
   { languageOptions: { globals: globals.browser } },
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
   pluginReact.configs.flat.recommended,
   {
     ...love,
-    files: ["**/*.js", "**/*.ts"],
+    files: ['**/*.js', '**/*.ts'],
   },
   {
     settings: {
       react: {
-        version: "detect",
+        version: 'detect',
       },
     },
     rules: {
@@ -28,8 +28,7 @@ export default [
       'react/prop-types': 'off', // Disabled because we use TypeScript for prop validation
       'eslint-comments/require-description': 'off',
       'no-console': 'off',
-      'quotes': ['error', 'single'],
-      '@typescript-eslint/quotes': ['error', 'single']
+      quotes: ['error', 'single'],
     },
   },
 ];
