@@ -37,15 +37,12 @@ interface ErrorResult {
   error: string;
 }
 
-export default async (req: Request, context: Context) => {
+export default async (req: Request, context: Context): Promise<Response> => {
   if (req.method !== 'POST') {
-    return new Response(
-      JSON.stringify({ error: 'Method Not Allowed' }),
-      {
-        status: 405,
-        headers: { 'Content-Type': 'application/json' }
-      }
-    );
+    return new Response(JSON.stringify({ error: 'Method Not Allowed' }), {
+      status: 405,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 
   // TODO: Build better and complex equipment list, see https://github.com/Grauenwolf/TravellerTools/blob/9d2a33b990796e5afb7821d87ef6258b688956f5/TravellerTools/Grauenwolf.TravellerTools.Web/wwwroot/App_Data/Equipment.csv
@@ -107,8 +104,10 @@ export default async (req: Request, context: Context) => {
       },
     });
 
-    const isSuccessResult = (result: unknown): result is SuccessResult => typeof result === 'object' && result !== null && 'data' in result;
-    const isErrorResult = (result: unknown): result is ErrorResult => typeof result === 'object' && result !== null && 'error' in result;
+    const isSuccessResult = (result: unknown): result is SuccessResult =>
+      typeof result === 'object' && result !== null && 'data' in result;
+    const isErrorResult = (result: unknown): result is ErrorResult =>
+      typeof result === 'object' && result !== null && 'error' in result;
 
     if (isSuccessResult(result)) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
@@ -139,31 +138,31 @@ export default async (req: Request, context: Context) => {
       const formatCharacteristics = (
         characteristics: RemoteCharacteristics
       ): Characteristics => ({
-          STR: {
-            value: characteristics.STR,
-            modifier: characteristicModifier(characteristics.STR),
-          },
-          DEX: {
-            value: characteristics.DEX,
-            modifier: characteristicModifier(characteristics.DEX),
-          },
-          END: {
-            value: characteristics.END,
-            modifier: characteristicModifier(characteristics.END),
-          },
-          INT: {
-            value: characteristics.INT,
-            modifier: characteristicModifier(characteristics.INT),
-          },
-          EDU: {
-            value: characteristics.EDU,
-            modifier: characteristicModifier(characteristics.EDU),
-          },
-          SOC: {
-            value: characteristics.SOC,
-            modifier: characteristicModifier(characteristics.SOC),
-          },
-        });
+        STR: {
+          value: characteristics.STR,
+          modifier: characteristicModifier(characteristics.STR),
+        },
+        DEX: {
+          value: characteristics.DEX,
+          modifier: characteristicModifier(characteristics.DEX),
+        },
+        END: {
+          value: characteristics.END,
+          modifier: characteristicModifier(characteristics.END),
+        },
+        INT: {
+          value: characteristics.INT,
+          modifier: characteristicModifier(characteristics.INT),
+        },
+        EDU: {
+          value: characteristics.EDU,
+          modifier: characteristicModifier(characteristics.EDU),
+        },
+        SOC: {
+          value: characteristics.SOC,
+          modifier: characteristicModifier(characteristics.SOC),
+        },
+      });
 
       const npc: NPC = {
         name: `${generatedNPC.first_name} ${generatedNPC.surname}`,
@@ -173,34 +172,25 @@ export default async (req: Request, context: Context) => {
         equipment: randomItems(equipment, 2),
       };
       console.log(generatedNPC);
-      return new Response(
-        JSON.stringify(npc),
-        {
-          status: 200,
-          headers: { 'Content-Type': 'application/json' }
-        }
-      );
+      return new Response(JSON.stringify(npc), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      });
     } else {
       console.error(
         'error while calling api',
         isErrorResult(result) ? result.error : result
       );
-      return new Response(
-        JSON.stringify({ error: 'Internal Sever Error' }),
-        {
-          status: 500,
-          headers: { 'Content-Type': 'application/json' }
-        }
-      );
+      return new Response(JSON.stringify({ error: 'Internal Sever Error' }), {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' },
+      });
     }
   } catch (e) {
     console.error('unexpected error while calling api', e);
-    return new Response(
-      JSON.stringify({ error: 'Internal Server Error' }),
-      {
-        status: 500,
-        headers: { 'Content-Type': 'application/json' }
-      }
-    );
+    return new Response(JSON.stringify({ error: 'Internal Server Error' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 };
