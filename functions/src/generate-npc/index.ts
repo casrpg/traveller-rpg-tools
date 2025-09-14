@@ -1,4 +1,4 @@
-import type { Handler, HandlerEvent, HandlerContext } from '@netlify/functions';
+import type { Context } from '@netlify/functions';
 import type {
   Characteristics as RemoteCharacteristics,
   NPC as RemoteNPC,
@@ -37,16 +37,15 @@ interface ErrorResult {
   error: string;
 }
 
-const handler: Handler = async (
-  event: HandlerEvent,
-  context: HandlerContext
-) => {
-  if (event.httpMethod !== 'POST') {
-    return {
-      statusCode: 405,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ error: 'Method Not Allowed' }),
-    };
+export default async (req: Request, context: Context) => {
+  if (req.method !== 'POST') {
+    return new Response(
+      JSON.stringify({ error: 'Method Not Allowed' }),
+      {
+        status: 405,
+        headers: { 'Content-Type': 'application/json' }
+      }
+    );
   }
 
   // TODO: Build better and complex equipment list, see https://github.com/Grauenwolf/TravellerTools/blob/9d2a33b990796e5afb7821d87ef6258b688956f5/TravellerTools/Grauenwolf.TravellerTools.Web/wwwroot/App_Data/Equipment.csv
@@ -174,30 +173,34 @@ const handler: Handler = async (
         equipment: randomItems(equipment, 2),
       };
       console.log(generatedNPC);
-      return {
-        statusCode: 200,
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(npc),
-      };
+      return new Response(
+        JSON.stringify(npc),
+        {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' }
+        }
+      );
     } else {
       console.error(
         'error while calling api',
         isErrorResult(result) ? result.error : result
       );
-      return {
-        statusCode: 500,
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ error: 'Internal Sever Error' }),
-      };
+      return new Response(
+        JSON.stringify({ error: 'Internal Sever Error' }),
+        {
+          status: 500,
+          headers: { 'Content-Type': 'application/json' }
+        }
+      );
     }
   } catch (e) {
     console.error('unexpected error while calling api', e);
-    return {
-      statusCode: 500,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ error: 'Internal Server Error' }),
-    };
+    return new Response(
+      JSON.stringify({ error: 'Internal Server Error' }),
+      {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' }
+      }
+    );
   }
 };
-
-export { handler };

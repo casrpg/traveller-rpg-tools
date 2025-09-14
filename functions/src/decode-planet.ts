@@ -1,39 +1,46 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
-import { type Handler, type HandlerEvent, type HandlerContext } from '@netlify/functions'
+import type { Context } from '@netlify/functions'
+
 interface Body {
   planetCode: string
 }
 
 const Unknown = 'unknown'
 
-// eslint-disable-next-line @typescript-eslint/require-await
-const handler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
-  if (event.httpMethod !== 'POST') {
-    return {
-      statusCode: 405,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: 'Method Not Allowed' })
-    }
+export default async (req: Request, context: Context) => {
+  if (req.method !== 'POST') {
+    return new Response(
+      JSON.stringify({ message: 'Method Not Allowed' }),
+      {
+        status: 405,
+        headers: { 'Content-Type': 'application/json' }
+      }
+    )
   }
 
-  if (event.body == null) {
-    return {
-      statusCode: 400,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ error: 'Missing planet code' })
-    }
+  const rawBody = await req.text()
+  if (!rawBody) {
+    return new Response(
+      JSON.stringify({ error: 'Missing planet code' }),
+      {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' }
+      }
+    )
   }
 
   let body: Body
   try {
-    body = JSON.parse(event.body)
+    body = JSON.parse(rawBody)
   } catch (error) {
-    return {
-      statusCode: 400,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ error: 'Invalid JSON' })
-    }
+    return new Response(
+      JSON.stringify({ error: 'Invalid JSON' }),
+      {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' }
+      }
+    )
   }
 
   const { planetCode } = body
@@ -51,11 +58,13 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
     techLevel: decodeTechLevel(planetCode[8])
   }
 
-  return {
-    statusCode: 200,
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(decodedInfo)
-  }
+  return new Response(
+    JSON.stringify(decodedInfo),
+    {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' }
+    }
+  )
 }
 
 interface Astroport {
@@ -175,5 +184,3 @@ function decodeLawLevel (code: string): string {
 function decodeTechLevel (code: string): string {
   return `TL${parseInt(code, 16)}`
 }
-
-export { handler }
