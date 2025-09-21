@@ -10,15 +10,15 @@ import { Home } from './features/Home'
 import { Counterscale } from './utils/analytics'
 import './App.css'
 
-const App: React.FC = () => {
-  const nav = (
-    <nav id="secondary-nav">
-      <Link to="/">Tool Index</Link>
-      <Link to="/planet-decoder">Planet Decoder</Link>
-      <Link to="/npc-generator">NPC generator</Link>
-    </nav>
-  )
+const MenuItems: React.FC = () => (
+  <nav id="secondary-nav">
+    <Link to="/">Tool Index</Link>
+    <Link to="/planet-decoder">Planet Decoder</Link>
+    <Link to="/npc-generator">NPC generator</Link>
+  </nav>
+);
 
+const App: React.FC = () => {
   const routes = (
     <Routes>
       <Route path="/npc-generator" element={<NPCGenerator />} />
@@ -35,7 +35,7 @@ const App: React.FC = () => {
           <div className="left-frame" data-id-test="menu-container">
             <div>
               <Panel kind="3">Traveller RPG <span className="hop">Tools</span></Panel>
-              {nav}
+              <MenuItems />
             </div>
             <Panel kind="4">04<CollapsibleLabel>-41969</CollapsibleLabel></Panel>
             <Panel kind="5">05<CollapsibleLabel>-1701D</CollapsibleLabel></Panel>
