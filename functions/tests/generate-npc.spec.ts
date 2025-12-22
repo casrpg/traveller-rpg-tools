@@ -1,74 +1,83 @@
-/* eslint-disable n/handle-callback-err */
 /* eslint-disable @typescript-eslint/no-empty-function */
-/* eslint-disable @typescript-eslint/no-unsafe-type-assertion */
-import { describe, it, expect } from 'vitest'
-import type { HandlerEvent, HandlerContext, HandlerResponse } from '@netlify/functions'
 
-import { handler } from '../src/generate-npc'
+import { describe, it, expect } from 'vitest';
+import type { Context } from '@netlify/functions';
+
+import handler from '../src/generate-npc';
 
 describe('generate-npc handler', () => {
   it('should return generated NPC data for a valid POST request', async () => {
-    const event = initializeHandlerEvent('POST')
-    const context = initializeHandlerContext()
+    const request = createRequest('POST');
+    const context = createContext();
 
-    const response = await handler(event, context) as HandlerResponse
+    const response = await handler(request, context);
 
-    expect(response.statusCode).toBe(200)
-    expect(response.headers).toBeDefined()
-    expect(response.headers).toHaveProperty('Content-Type')
-    expect(response.headers!['Content-Type']).toBe('application/json')
-    expect(response.body).toBeDefined()
-    const body = JSON.parse(response.body!)
-    expect(body).toHaveProperty('name')
-    expect(body).toHaveProperty('occupation')
-    expect(body).toHaveProperty('skills')
-    expect(body).toHaveProperty('equipment')
-  })
+    expect(response).toBeInstanceOf(Response);
+    expect(response.status).toBe(200);
+    expect(response.headers.get('Content-Type')).toBe('application/json');
+
+    const body = await response.json();
+    expect(body).toHaveProperty('name');
+    expect(body).toHaveProperty('occupation');
+    expect(body).toHaveProperty('skills');
+    expect(body).toHaveProperty('equipment');
+  });
 
   it('should return 405 for non-POST requests', async () => {
-    const event = initializeHandlerEvent('GET')
-    const context = initializeHandlerContext()
+    const request = createRequest('GET');
+    const context = createContext();
 
-    const response = await handler(event, context) as HandlerResponse
+    const response = await handler(request, context);
 
-    expect(response.statusCode).toBe(405)
-    expect(response.headers).toBeDefined()
-    expect(response.headers).toHaveProperty('Content-Type')
-    expect(response.headers!['Content-Type']).toBe('application/json')
-    expect(response.body).toBeDefined()
-    const body = JSON.parse(response.body!)
-    expect(body).toHaveProperty('message', 'Method Not Allowed')
-  })
-})
+    expect(response).toBeInstanceOf(Response);
+    expect(response.status).toBe(405);
+    expect(response.headers.get('Content-Type')).toBe('application/json');
 
-function initializeHandlerContext (): HandlerContext {
+    const body = await response.json();
+    expect(body).toHaveProperty('error', 'Method Not Allowed');
+  });
+});
+
+function createContext(): Context {
   return {
-    callbackWaitsForEmptyEventLoop: false,
-    functionName: '',
-    functionVersion: '',
-    invokedFunctionArn: '',
-    memoryLimitInMB: '',
-    awsRequestId: '',
-    logGroupName: '',
-    logStreamName: '',
-    getRemainingTimeInMillis (): number { return 0 },
-    done (error?: Error, result?: any): void {},
-    fail (error: Error | string): void {},
-    succeed (messageOrObject: any): void {}
-  }
+    account: { id: 'test-account' },
+    cookies: {
+      get: () => undefined,
+      set: () => {},
+      delete: () => {},
+    },
+    deploy: {
+      context: 'production',
+      id: 'test-deploy',
+      published: true,
+    },
+    geo: {
+      city: 'Test City',
+      country: { code: 'US', name: 'United States' },
+      latitude: 37.7749,
+      longitude: -122.4194,
+      subdivision: { code: 'CA', name: 'California' },
+      timezone: 'America/Los_Angeles',
+      postalCode: '94102',
+    },
+    ip: '127.0.0.1',
+    params: {},
+    requestId: 'test-request-id',
+    server: { region: 'us-east-1' },
+    site: {
+      id: 'test-site-id',
+      name: 'test-site',
+      url: 'https://test-site.netlify.app',
+    },
+    waitUntil: () => {},
+  };
 }
 
-function initializeHandlerEvent (method: string): HandlerEvent {
-  return {
-    httpMethod: method,
-    body: null,
-    rawUrl: '/api/generate-npc',
-    rawQuery: '',
-    path: '/api/generate-npc',
-    headers: {},
-    multiValueHeaders: {},
-    queryStringParameters: null,
-    multiValueQueryStringParameters: null,
-    isBase64Encoded: false
-  }
+function createRequest(method: string): Request {
+  return new Request('https://example.com/api/generate-npc', {
+    method,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
 }

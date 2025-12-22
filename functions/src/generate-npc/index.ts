@@ -1,14 +1,14 @@
-import type { Handler, HandlerEvent, HandlerContext } from "@netlify/functions";
+import type { Context } from '@netlify/functions';
 import type {
   Characteristics as RemoteCharacteristics,
   NPC as RemoteNPC,
-} from "./npc-gen-client/types.gen";
-import { generateNpc } from "./npc-gen-client/sdk.gen";
-import { createClient, createConfig } from "@hey-api/client-fetch";
+} from './npc-gen-client/types.gen';
+import { generateNpc } from './npc-gen-client/sdk.gen';
+import { createClient, createConfig } from '@hey-api/client-fetch';
 
 const client = createClient(
   createConfig({
-    baseUrl: "http://traveller-rpg-api.sir-ragnar.workers.dev",
+    baseUrl: 'http://traveller-rpg-api.sir-ragnar.workers.dev',
   })
 );
 
@@ -17,7 +17,7 @@ interface CharacteristicValue {
   modifier: number;
 }
 
-type Characteristic = "STR" | "DEX" | "END" | "INT" | "EDU" | "SOC";
+type Characteristic = 'STR' | 'DEX' | 'END' | 'INT' | 'EDU' | 'SOC';
 
 // eslint-disable-next-line @typescript-eslint/consistent-indexed-object-style
 type Characteristics = {
@@ -37,30 +37,26 @@ interface ErrorResult {
   error: string;
 }
 
-const handler: Handler = async (
-  event: HandlerEvent,
-  context: HandlerContext
-) => {
-  if (event.httpMethod !== "POST") {
-    return {
-      statusCode: 405,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ error: "Method Not Allowed" }),
-    };
+export default async (req: Request, context: Context): Promise<Response> => {
+  if (req.method !== 'POST') {
+    return new Response(JSON.stringify({ error: 'Method Not Allowed' }), {
+      status: 405,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 
   // TODO: Build better and complex equipment list, see https://github.com/Grauenwolf/TravellerTools/blob/9d2a33b990796e5afb7821d87ef6258b688956f5/TravellerTools/Grauenwolf.TravellerTools.Web/wwwroot/App_Data/Equipment.csv
   const equipment = [
-    "Portable Computer/2",
-    "Commdot",
-    "Medkit (TL12)",
-    "Laser Pistol (3D+3, Zero-G)",
-    "Stunner (3D, Stun)",
-    "Truncheon (2D)",
-    "Armor: Poly Carapace (+16)",
-    "Decryptor (TL12)",
-    "Tailored Vacc Suit (+8)",
-    "Ballistic Tracking Lenses (TL12)",
+    'Portable Computer/2',
+    'Commdot',
+    'Medkit (TL12)',
+    'Laser Pistol (3D+3, Zero-G)',
+    'Stunner (3D, Stun)',
+    'Truncheon (2D)',
+    'Armor: Poly Carapace (+16)',
+    'Decryptor (TL12)',
+    'Tailored Vacc Suit (+8)',
+    'Ballistic Tracking Lenses (TL12)',
   ];
 
   const randomItem = <T>(array: T[]): T =>
@@ -75,41 +71,43 @@ const handler: Handler = async (
       client,
       body: {
         role: randomItem([
-          "pilot",
-          "navigator",
-          "engineer",
-          "steward",
-          "medic",
-          "marine",
-          "gunner",
-          "scout",
-          "technician",
-          "leader",
-          "diplomat",
-          "entertainer",
-          "trader",
-          "thug",
+          'pilot',
+          'navigator',
+          'engineer',
+          'steward',
+          'medic',
+          'marine',
+          'gunner',
+          'scout',
+          'technician',
+          'leader',
+          'diplomat',
+          'entertainer',
+          'trader',
+          'thug',
         ]),
         citizen_category: randomItem([
-          "below_average",
-          "average",
-          "above_average",
-          "exceptional",
+          'below_average',
+          'average',
+          'above_average',
+          'exceptional',
         ]),
         experience: randomItem([
-          "recruit",
-          "rookie",
-          "intermediate",
-          "regular",
-          "veteran",
-          "elite",
+          'recruit',
+          'rookie',
+          'intermediate',
+          'regular',
+          'veteran',
+          'elite',
         ]),
-        gender: randomItem(["female", "male", "unspecified"]),
+        gender: randomItem(['female', 'male', 'unspecified']),
       },
     });
 
-    const isSuccessResult = (result: unknown): result is SuccessResult => typeof result === "object" && result !== null && "data" in result;
-    const isErrorResult = (result: unknown): result is ErrorResult => typeof result === "object" && result !== null && "error" in result;
+    const isSuccessResult = (result: unknown): result is SuccessResult =>
+      typeof result === 'object' && result !== null && 'data' in result;
+    const isErrorResult = (result: unknown): result is ErrorResult =>
+      typeof result === 'object' && result !== null && 'error' in result;
 
     if (isSuccessResult(result)) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
@@ -140,31 +138,31 @@ const handler: Handler = async (
       const formatCharacteristics = (
         characteristics: RemoteCharacteristics
       ): Characteristics => ({
-          STR: {
-            value: characteristics.STR,
-            modifier: characteristicModifier(characteristics.STR),
-          },
-          DEX: {
-            value: characteristics.DEX,
-            modifier: characteristicModifier(characteristics.DEX),
-          },
-          END: {
-            value: characteristics.END,
-            modifier: characteristicModifier(characteristics.END),
-          },
-          INT: {
-            value: characteristics.INT,
-            modifier: characteristicModifier(characteristics.INT),
-          },
-          EDU: {
-            value: characteristics.EDU,
-            modifier: characteristicModifier(characteristics.EDU),
-          },
-          SOC: {
-            value: characteristics.SOC,
-            modifier: characteristicModifier(characteristics.SOC),
-          },
-        });
+        STR: {
+          value: characteristics.STR,
+          modifier: characteristicModifier(characteristics.STR),
+        },
+        DEX: {
+          value: characteristics.DEX,
+          modifier: characteristicModifier(characteristics.DEX),
+        },
+        END: {
+          value: characteristics.END,
+          modifier: characteristicModifier(characteristics.END),
+        },
+        INT: {
+          value: characteristics.INT,
+          modifier: characteristicModifier(characteristics.INT),
+        },
+        EDU: {
+          value: characteristics.EDU,
+          modifier: characteristicModifier(characteristics.EDU),
+        },
+        SOC: {
+          value: characteristics.SOC,
+          modifier: characteristicModifier(characteristics.SOC),
+        },
+      });
 
       const npc: NPC = {
         name: `${generatedNPC.first_name} ${generatedNPC.surname}`,
@@ -174,30 +172,25 @@ const handler: Handler = async (
         equipment: randomItems(equipment, 2),
       };
       console.log(generatedNPC);
-      return {
-        statusCode: 200,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(npc),
-      };
+      return new Response(JSON.stringify(npc), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      });
     } else {
       console.error(
-        "error while calling api",
+        'error while calling api',
         isErrorResult(result) ? result.error : result
       );
-      return {
-        statusCode: 500,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ error: "Internal Sever Error" }),
-      };
+      return new Response(JSON.stringify({ error: 'Internal Sever Error' }), {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' },
+      });
     }
   } catch (e) {
-    console.error("unexpected error while calling api", e);
-    return {
-      statusCode: 500,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ error: "Internal Server Error" }),
-    };
+    console.error('unexpected error while calling api', e);
+    return new Response(JSON.stringify({ error: 'Internal Server Error' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 };
-
-export { handler };
