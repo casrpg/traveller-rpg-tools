@@ -20,10 +20,10 @@ test('test decode planet', async ({ page }) => {
   await expect(page.locator(astroportLocator)).toHaveText('quality: Excelent, docking price: 1D x 1.000 Cr, fuel: Refined, services: Repairs and all shipyard');
   await expect(page.locator(sizeLocator)).toContainText('diameter: 16.000 Km,');
   await expect(page.locator(atmosphereLocator)).toContainText('Standard / Tainted');
-  await expect(page.locator(hydrographicsLocator)).toHaveText('90% water');
-  await expect(page.locator(populationLocator)).toHaveText('Millions');
-  await expect(page.locator(governmentLocator)).toHaveText('Balkanization');
-  await expect(page.locator(lawLevelLocator)).toHaveText('Level 1');
-  await expect(page.locator(techLevelLocator)).toHaveText('TL8');
+  await expect(page.locator(hydrographicsLocator)).toContainText('16%-25%');
+  await expect(page.locator(populationLocator)).toContainText('P.000.000.000');
+  await expect(page.locator(governmentLocator)).toContainText('Balkanisation');
+  await expect(page.locator(lawLevelLocator)).toContainText('poison gas');
+  await expect(page.locator(techLevelLocator)).toContainText('Early Space Age');
 });
 
