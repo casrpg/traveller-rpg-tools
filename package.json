@@ -24,13 +24,10 @@
   ],
   "volta": {
     "node": "22.19.0",
-    "npm": "11.7.0"
+    "npm": "10.9.0"
   },
   "devDependencies": {
     "@playwright/test": "1.57.0",
-    "netlify-cli": "23.5.1"
-  },
-  "dependencies": {
-    "vite": "6.4.1"
+    "netlify-cli": "23.13.3"
   }
 }
