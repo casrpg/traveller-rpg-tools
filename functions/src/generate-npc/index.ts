@@ -112,8 +112,8 @@ export default async (req: Request, context: Context): Promise<Response> => {
     if (isSuccessResult(result)) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
       const generatedNPC = result.data as RemoteNPC;
-      const capitalizeFirstLetter = (string: string): string =>
-        string.charAt(0).toUpperCase() + string.slice(1);
+      const capitalizeFirstLetter = (value: string): string =>
+        value.charAt(0).toUpperCase() + value.slice(1);
 
       const characteristicModifier = (value: number): number => {
         /*
