@@ -260,7 +260,7 @@ function decodeHydrographics (code: string): string {
     return Unknown
   }
   const { description, h2oPerc, remarks } = hydroByCode[code]
-  return `Description: ${description}, %H2O: ${h2oPerc}, Remarks: ${remarks}`
+  return `${description}, %H2O: ${h2oPerc}, Remarks: ${remarks}`
 }
 
 interface Population {
@@ -291,7 +291,7 @@ function decodePopulation (code: string): string {
     return Unknown
   }
   const { description, pop, multiplier } = populationByCode[code]
-  return `Description: ${description}, Population: ${pop}, Multiplier: ${multiplier}`
+  return `${description}, Population: ${pop}, Multiplier: ${multiplier}`
 }
 
 interface Government {
@@ -326,7 +326,7 @@ function decodeGovernment (code: string): string {
   }
   const { name, description, powerSource, structure } = governmentByCode[code.toUpperCase()];
   
-  return `Name: ${name}, Description: ${description}, Power Source: ${powerSource}, Structure: ${structure}`
+  return `${name}, Description: ${description}, Power Source: ${powerSource}, Structure: ${structure}`
 }
 
 interface LawLevel {
@@ -363,7 +363,7 @@ function decodeLawLevel(code: string): string {
   
   const { name, description, prohibitions } = lawLevelByCode[normalizedCode];
   
-  return `Name: ${name}, Description: ${description}, Prohibitions: ${prohibitions}`;
+  return `${name}, Description: ${description}, Prohibitions: ${prohibitions}`;
 }
 
 interface TechLevel {
@@ -401,5 +401,5 @@ function decodeTechLevel(code: string): string {
 
   const { name, description, capabilities } = techLevelByCode[normalizedCode];
 
-  return `Name: ${name}, Description: ${description}, Capabilities: ${capabilities}`;
+  return `${name}, Description: ${description}, Capabilities: ${capabilities}`;
 }
