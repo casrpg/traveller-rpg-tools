@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
-
 interface Astroport {
   quality: string;
   dockingPrice: string;
@@ -48,7 +46,7 @@ const astroportByCode: Record<string, Astroport> = {
 
 export function decodeAstroport(code: string): string {
   const Unknown = 'unknown';
-  if (!astroportByCode[code]) {
+  if (astroportByCode[code]===undefined) {
     return Unknown;
   }
   const { quality, dockingPrice, fuel, services } = astroportByCode[code];

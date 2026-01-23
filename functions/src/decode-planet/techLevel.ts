@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
-
 interface TechLevel {
   name: string;
   description: string;
@@ -30,7 +28,7 @@ export function decodeTechLevel(code: string): string {
   const Unknown = 'unknown';
   const normalizedCode = code.toUpperCase();
 
-  if (!techLevelByCode[normalizedCode]) {
+  if (techLevelByCode[normalizedCode]===undefined) {
     return Unknown;
   }
 

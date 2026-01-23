@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
-
 interface LawLevel {
   name: string;
   description: string;
@@ -29,7 +27,7 @@ export function decodeLawLevel(code: string): string {
   const Unknown = 'unknown';
   const normalizedCode = code.toUpperCase();
   
-  if (!lawLevelByCode[normalizedCode]) {
+  if (lawLevelByCode[normalizedCode]===undefined) {
     return Unknown;
   }
   

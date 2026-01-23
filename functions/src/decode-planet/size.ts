@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
-
 interface PlanetSize {
   diameter: string;
   jumpDistance: string;
@@ -90,7 +88,7 @@ const sizeByCode: Record<string, PlanetSize> = {
 
 export function decodeSize(code: string): string {
   const Unknown = 'unknown';
-  if (!sizeByCode[code]) {
+  if (sizeByCode[code]===undefined) {
     return Unknown;
   }
   const { diameter, jumpDistance, jumpRapidDistance, gravity, example } =

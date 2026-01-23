@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
-
 interface Hydrographics {
   description: string
   h2oPerc: string
@@ -22,7 +20,7 @@ const hydroByCode: Record<string, Hydrographics> = {
 
 export function decodeHydrographics(code: string): string {
   const Unknown = 'unknown';
-  if (!hydroByCode[code]) {
+  if (hydroByCode[code]===undefined) {
     return Unknown
   }
   const { description, h2oPerc, remarks } = hydroByCode[code]

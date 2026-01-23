@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
-
 import type { Context } from '@netlify/functions';
 import { decodeAstroport } from './astroport';
 import { decodeSize } from './size';
@@ -23,7 +21,7 @@ export default async (req: Request, context: Context): Promise<Response> => {
   }
 
   const rawBody = await req.text();
-  if (!rawBody) {
+  if (rawBody === '') {
     return new Response(JSON.stringify({ error: 'Missing planet code' }), {
       status: 400,
       headers: { 'Content-Type': 'application/json' },

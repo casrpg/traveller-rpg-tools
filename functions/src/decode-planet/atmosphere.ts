@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
-
 interface Atmosphere {
   specificDescription: string;
   generalDescription: string;
@@ -28,7 +26,7 @@ const atmosphereByCode: Record<string, Atmosphere> = {
 
 export function decodeAtmosphere(code: string): string {
   const Unknown = 'unknown';
-  if (!atmosphereByCode[code]) {
+  if (atmosphereByCode[code]===undefined) {
     return Unknown;
   }
   const { specificDescription, generalDescription, pressure, remarks } =

@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
-
 interface Population {
   description: string
   pop: string
@@ -24,7 +22,7 @@ const populationByCode: Record<string, Population> = {
 
 export function decodePopulation(code: string): string {
   const Unknown = 'unknown';
-  if (!populationByCode[code]) {
+  if (populationByCode[code]===undefined) {
     return Unknown
   }
   const { description, pop, multiplier } = populationByCode[code]

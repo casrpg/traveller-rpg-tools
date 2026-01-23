@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
-
 interface Government {
   name: string
   description: string
@@ -28,7 +26,7 @@ const governmentByCode: Record<string, Government> = {
 
 export function decodeGovernment(code: string): string {
   const Unknown = 'unknown';
-  if (!governmentByCode[code]) {
+  if (governmentByCode[code]===undefined) {
     return Unknown
   }
   const { name, description, powerSource, structure } = governmentByCode[code.toUpperCase()];
