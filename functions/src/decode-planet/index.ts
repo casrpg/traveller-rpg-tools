@@ -7,6 +7,7 @@ import { decodePopulation } from './population';
 import { decodeGovernment } from './government';
 import { decodeLawLevel } from './lawLevel';
 import { decodeTechLevel } from './techLevel';
+import { decodeTradeCode } from './tradeCodes';
 
 interface Body {
   planetCode: string;
@@ -49,7 +50,8 @@ export default async (req: Request, context: Context): Promise<Response> => {
     population: decodePopulation(planetCode[4]),
     government: decodeGovernment(planetCode[5]),
     lawLevel: decodeLawLevel(planetCode[6]),
-    techLevel: decodeTechLevel(planetCode[7])
+    techLevel: decodeTechLevel(planetCode[7]),
+    'Trade codes': decodeTradeCode(planetCode)
   }
 
   return new Response(JSON.stringify(decodedInfo), {
