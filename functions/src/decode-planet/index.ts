@@ -13,6 +13,18 @@ interface Body {
   planetCode: string;
 }
 
+interface PlanetInfo {
+    name: string
+    astroport: string
+    size: string
+    atmosphere: string
+    hydrographics: string
+    population: string
+    government: string
+    lawLevel: string
+    techLevel: string
+    tradeCodes: string
+  }
 export default async (req: Request, context: Context): Promise<Response> => {
   if (req.method !== 'POST') {
     return new Response(JSON.stringify({ message: 'Method Not Allowed' }), {
@@ -40,8 +52,8 @@ export default async (req: Request, context: Context): Promise<Response> => {
   }
 
   const { planetCode } = body;
-
-  const decodedInfo = {
+  
+  const decodedInfo : PlanetInfo = {
     name: `Planet ${planetCode}`,
     astroport: decodeAstroport(planetCode[0]),
     size: decodeSize(planetCode[1]),
@@ -51,7 +63,7 @@ export default async (req: Request, context: Context): Promise<Response> => {
     government: decodeGovernment(planetCode[5]),
     lawLevel: decodeLawLevel(planetCode[6]),
     techLevel: decodeTechLevel(planetCode[7]),
-    'Trade codes': decodeTradeCode(planetCode)
+    tradeCodes: decodeTradeCode(planetCode)
   }
 
   return new Response(JSON.stringify(decodedInfo), {

@@ -8,7 +8,6 @@ import { ListItem } from '../lcars/ListItem'
 interface PlanetInfo {
   name: string
   astroport: string
-  tradeCodes?: string[] | string
   size: number
   atmosphere: number
   hydrographics: number
@@ -16,6 +15,7 @@ interface PlanetInfo {
   government: number
   lawLevel: number
   techLevel: number
+  tradeCodes?: string[] | string
 }
 
 export const PlanetDecoder: React.FC = () => {
@@ -62,12 +62,7 @@ export const PlanetDecoder: React.FC = () => {
               <ListItem color="ghost-gray">Government: <span className='ghost-gray' data-test-id="government">{planetInfo.government}</span></ListItem>
               <ListItem color="light-orange">Law Level: <span className='light-orange' data-test-id="lawLevel">{planetInfo.lawLevel}</span></ListItem>
               <ListItem color="blue">Tech Level: <span className='blue' data-test-id="techLevel">{planetInfo.techLevel}</span></ListItem>
-              <ListItem color="green">Trade Codes: <span className='green' data-test-id="tradeCode">{(() => {
-                const tc = planetInfo.tradeCodes
-                if (!tc) return ''
-                if (Array.isArray(tc)) return tc.join(', ')
-                return String(tc).split(',').map(s => s.trim()).filter(Boolean).join(', ')
-              })()}</span></ListItem>
+              <ListItem color="green">Trade Codes: <span className='green' data-test-id="tradeCodes">{planetInfo.tradeCodes}</span></ListItem>
             </List>
           </>
       )}
