@@ -35,6 +35,6 @@ test('test decode planet', async ({ page }) => {
     'Early Space Age'
   );
   await expect(page.locator(tradeCodesLocator)).toContainText(
-    'High population, Industrial'
+    'High population, Industrial (HiIn)'
   );
 });
