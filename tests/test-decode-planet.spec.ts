@@ -9,14 +9,15 @@ const populationLocator = '[data-test-id="population"]';
 const governmentLocator = '[data-test-id="government"]';
 const lawLevelLocator = '[data-test-id="lawLevel"]';
 const techLevelLocator = '[data-test-id="techLevel"]';
+const tradeCodesLocator = '[data-test-id="tradeCodes"]';
 
 test('test decode planet', async ({ page }) => {
   await page.goto('http://localhost:8080/');
   await page.getByRole('link', { name: 'Planet Decoder' }).click();
   await page.getByPlaceholder('Enter planet code').click();
-  await page.getByPlaceholder('Enter planet code').fill('AA7294718');
+  await page.getByPlaceholder('Enter planet code').fill('AA729478');
   await page.getByRole('button', { name: 'Decode Planet' }).click();
-  await expect(page.locator(nameLocator)).toHaveText('Planet AA7294718');
+  await expect(page.locator(nameLocator)).toHaveText('Planet AA729478');
   await expect(page.locator(astroportLocator)).toHaveText(
     'quality: Excelent, docking price: 1D x 1.000 Cr, fuel: Refined, services: Repairs and all shipyard'
   );
@@ -31,6 +32,9 @@ test('test decode planet', async ({ page }) => {
   );
   await expect(page.locator(lawLevelLocator)).toContainText('Shotguns banned');
   await expect(page.locator(techLevelLocator)).toContainText(
-    'Bronze/Iron Age tech'
+    'Early Space Age'
+  );
+  await expect(page.locator(tradeCodesLocator)).toContainText(
+    'High population, Industrial (HiIn)'
   );
 });
