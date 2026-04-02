@@ -23,7 +23,7 @@
     "@vitejs/plugin-react-swc": "4.2.3",
     "autoprefixer": "10.4.27",
     "eslint": "9.39.2",
-    "eslint-config-love": "144.0.0",
+    "eslint-config-love": "151.0.0",
     "eslint-plugin-react": "7.37.5",
     "globals": "17.0.0",
     "typescript": "5.9.3",
