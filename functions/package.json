@@ -23,7 +23,7 @@
     "eslint-config-love": "144.0.0",
     "globals": "17.0.0",
     "typescript": "5.9.3",
-    "typescript-eslint": "8.52.0",
+    "typescript-eslint": "8.58.0",
     "vitest": "3.2.4"
   }
 }
