@@ -28,6 +28,6 @@
   },
   "devDependencies": {
     "@playwright/test": "1.58.2",
-    "netlify-cli": "23.14.0"
+    "netlify-cli": "26.0.2"
   }
 }
